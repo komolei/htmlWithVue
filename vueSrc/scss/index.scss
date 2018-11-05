@@ -1,27 +1,8 @@
-// * {
-//     padding: 0;
-//     margin: 0;
-// }
 html {
     font-family: -apple-system, BlinkMacSystemFont, PingFangSC-Regular, PingFangSC-Medium, "PingFang SC", "Helvetica Neue", STHeiti, "Microsoft Yahei", Tahoma, Simsun, sans-serif;
 }
 
-@import "component/loading/index.css";
-@keyframes fadeOut_native {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-        display: none;
-    }
-}
-
-.mask_animate {
-    animation: fadeOut_native 2s normal 1s ease;
-    animation-iteration-count: 1;
-}
-
+@import "components/loading/index.css";
 body {
     display: flex;
     flex-flow: row nowrap;
@@ -68,13 +49,12 @@ body {
                 div {
                     padding: 7px 13px;
                     color: rgba(34, 34, 34, 1);
-                    border: 1px solid transparent; // border-image: none;
                 }
-                .show_border {
-                    background: rgba(255, 255, 255, 1);
-                    border: 1px solid rgba(10, 24, 49, 1); // border-image: none;
-                    border-radius: 15px;
-                }
+            }
+            .show_border {
+                background: rgba(255, 255, 255, 1);
+                border: 1px solid rgba(10, 24, 49, 1); // border-image: none;
+                border-radius: 15px;
             }
         }
         .content {
@@ -257,35 +237,16 @@ body {
         width: 100%;
         height: 100%;
     }
-   
-    .svg_ct {
-        height: 20px;
-        display: flex;
-        justify-content: center; // background:rgba(239,239,244,1);
-    }
-    .hide {
-        display: none;
-    }
-}
-.custom_ct {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 99;
-    background: rgba(0, 0, 0, .3);
     .custom {
-        width: 400px;
-        height: 343px;
-        background: rgba(255, 255, 255, 1);
-        border-radius: 15px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        color: #fff;
-        transform: translate(-50%, -50%);
-        z-index:200;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+        background: rgba(0, 0, 0, 1);
+        opacity: 0.3;
     }
 }
+
 .hide {
     display: none;
 }

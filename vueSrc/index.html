@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- set `maximum-scale` for some compatibility issues -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>
+        <%=htmlWebpackPlugin.options.title %>
+    </title>
+    <link rel="shortcut icon" type="image/x-icon" href="//appybrencdn.oss-cn-hangzhou.aliyuncs.com/PC/web/favicon.ico"
+        media="screen">
+    <!-- <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script> -->
+    <!-- 阿里高清方案 -->
+    <!-- <script>!function (e) { function t(a) { if (i[a]) return i[a].exports; var n = i[a] = { exports: {}, id: a, loaded: !1 }; return e[a].call(n.exports, n, n.exports, t), n.loaded = !0, n.exports } var i = {}; return t.m = e, t.c = i, t.p = "", t(0) }([function (e, t) { "use strict"; Object.defineProperty(t, "__esModule", { value: !0 }); var i = window; t["default"] = i.flex = function (e, t) { var a = e || 100, n = t || 1, r = i.document, o = navigator.userAgent, d = o.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i), l = o.match(/U3\/((\d+|\.){5,})/i), c = l && parseInt(l[1].split(".").join(""), 10) >= 80, p = navigator.appVersion.match(/(iphone|ipad|ipod)/gi), s = i.devicePixelRatio || 1; p || d && d[1] > 534 || c || (s = 1); var u = 1 / s, m = r.querySelector('meta[name="viewport"]'); m || (m = r.createElement("meta"), m.setAttribute("name", "viewport"), r.head.appendChild(m)), m.setAttribute("content", "width=device-width,user-scalable=no,initial-scale=" + u + ",maximum-scale=" + u + ",minimum-scale=" + u), r.documentElement.style.fontSize = a / 2 * s * n + "px" }, e.exports = t["default"] }]);
+        flex(100, 1);
+    </script> -->
+    <!-- <script src='vue.js'></script> -->
+    <!-- <script src="https://cdn.bootcss.com/vue/2.5.17/vue.js"></script> -->
+
+</head>
+
+<body>
+    <div class="left">
+        xxx
+    </div>
+    <div id="app">
+        <p @click='changeName'>{{name}}</p>
+        <div class="mask" ref='mask'>
+            <div class="loader">
+                <span class="loader-block"></span>
+                <span class="loader-block"></span>
+                <span class="loader-block"></span>
+                <span class="loader-block"></span>
+                <span class="loader-block"></span>
+                <span class="loader-block"></span>
+                <span class="loader-block"></span>
+                <span class="loader-block"></span>
+                <span class="loader-block"></span>
+            </div>
+        </div>
+        <div class="ct">
+            <div class="nav">
+                <div class="command">
+                    筛选客户：
+                </div>
+                <div class="sel_command">
+                    <div class="show_border">累计消费金额</div>
+                    <div>现金余额</div>
+                    <div>最近购买时间</div>
+                    <div>下次联系时间</div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="top">
+                    <span class="btn_all">全部</span>
+                    <div class="down_ct hide">
+                        <div class="triangle"></div>
+                        <ul class="downNav ">
+                            <li>全部</li>
+                            <li>未联系</li>
+                            <li>同意充值</li>
+                            <li>拒绝充值</li>
+                            <li>下次联系</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="wrapper_ct">
+                    <div class="wrapper" ref='wrapper'>
+                        <ul class="content">
+                            <li>
+                                <div class="title">
+                                    <div class="left">方先生-男-15025430215</div>
+                                    <div class="right">
+                                        <span>未联系</span>
+                                        <div class="img_ct">
+                                            <img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="content_c">
+                                    <div class="left">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                活动余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                累计消费金额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                备注：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻
+                                            </span>
+                                        </p>
+                                        <div class="btns">
+                                            <div class="btn_history">历史订单</div>
+                                            <div class="record">充值记录</div>
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <div class="left">方先生-男-15025430215</div>
+                                    <div class="right">
+                                        <span>未联系</span>
+                                        <div class="img_ct">
+                                            <img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="content_c">
+                                    <div class="left">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                活动余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                累计消费金额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                备注：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻
+                                            </span>
+                                        </p>
+                                        <div class="btns">
+                                            <div class="btn_history">历史订单</div>
+                                            <div class="record">充值记录</div>
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="title">
+                                    <div class="left">方先生-男-15025430215</div>
+                                    <div class="right">
+                                        <span>未联系</span>
+                                        <div class="img_ct">
+                                            <img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="content_c">
+                                    <div class="left">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                活动余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                累计消费金额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                备注：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻
+                                            </span>
+                                        </p>
+                                        <div class="btns">
+                                            <div class="btn_history">历史订单</div>
+                                            <div class="record">充值记录</div>
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="title">
+                                    <div class="left">方先生-男-15025430215</div>
+                                    <div class="right">
+                                        <span>未联系</span>
+                                        <div class="img_ct">
+                                            <img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="content_c">
+                                    <div class="left">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                活动余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                累计消费金额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                备注：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻
+                                            </span>
+                                        </p>
+                                        <div class="btns">
+                                            <div class="btn_history">历史订单</div>
+                                            <div class="record">充值记录</div>
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="title">
+                                    <div class="left">方先生-男-15025430215</div>
+                                    <div class="right">
+                                        <span>未联系</span>
+                                        <div class="img_ct">
+                                            <img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="content_c">
+                                    <div class="left">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                活动余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                累计消费金额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                备注：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻
+                                            </span>
+                                        </p>
+                                        <div class="btns">
+                                            <div class="btn_history">历史订单</div>
+                                            <div class="record">充值记录</div>
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <div class="left">方先生-男-15025430215</div>
+                                    <div class="right">
+                                        <span>未联系</span>
+                                        <div class="img_ct">
+                                            <img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="content_c">
+                                    <div class="left">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                活动余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                累计消费金额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                备注：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻
+                                            </span>
+                                        </p>
+                                        <div class="btns">
+                                            <div class="btn_history">历史订单</div>
+                                            <div class="record">充值记录</div>
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="title">
+                                    <div class="left">方先生-男-15025430215</div>
+                                    <div class="right">
+                                        <span>未联系</span>
+                                        <div class="img_ct">
+                                            <img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="content_c">
+                                    <div class="left">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                活动余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                累计消费金额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                备注：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻
+                                            </span>
+                                        </p>
+                                        <div class="btns">
+                                            <div class="btn_history">历史订单</div>
+                                            <div class="record">充值记录</div>
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="title">
+                                    <div class="left">方先生-男-15025430215</div>
+                                    <div class="right">
+                                        <span>未联系</span>
+                                        <div class="img_ct">
+                                            <img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="content_c">
+                                    <div class="left">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                活动余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                累计消费金额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                备注：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻下嘻嘻嘻嘻嘻嘻嘻嘻
+                                            </span>
+                                        </p>
+                                        <div class="btns">
+                                            <div class="btn_history">历史订单</div>
+                                            <div class="record">充值记录</div>
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                        <p>
+                                            <span class="text_1">
+                                                现金余额：
+                                            </span>
+                                            <span class="text_2">
+                                                3180.00元
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="custom">
+            <div class="custom_ct">
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<!-- <script src="https://ossstatic.ybren.com/Wx/Public/js/jquery.1.7.2.min.js"></script>
+<script src="https://ossstatic.ybren.com/Wx/Public/js/app_function.js"></script>
+<script src="https://ossstatic.ybren.com/Wx/Public/js/jquery.openapp.js"></script> -->
+<!-- <script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/lib/bscroll.min.js"></script> -->
+<!-- <script>
+    new Vue({
+        el: '#app',
+        data: {
+            name: 'yunlai',
+        },
+        methods: {
+            changeName() {
+                this.name='xxxxxxxxx';
+            }
+        },
+        created: function () {
+            console.log('created')
+        },
+        mounted: function () {
+            console.log('mounted')
+            this.$nextTick(function () {
+                console.log('this.$nextTick--', this.$refs.mask)
+                setTimeout(() => {
+                    this.$refs.mask.classList.add('hide')
+                }, 1000);
+                this.scroll = new Bscroll(this.$refs.wrapper, {})
+            })
+
+        }
+    })
+</script> -->
+
+</html>
