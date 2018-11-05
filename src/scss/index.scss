@@ -1,0 +1,49 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-family: -apple-system, BlinkMacSystemFont, PingFangSC-Regular, PingFangSC-Medium, "PingFang SC", "Helvetica Neue", STHeiti, "Microsoft Yahei", Tahoma, Simsun, sans-serif;
+}
+
+.app {
+    font-size: 14px;
+    line-height: 32px;
+    box-sizing: border-box;
+    padding:20px 20px;
+    .header {
+        .img_ct {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        padding-bottom: 20px;
+    }
+    .body {
+        color: #222;
+        h2,
+        h4 {
+            text-align: center;
+        }
+        p {
+            text-indent: 2em;
+            text-align: justify; // line-height: 70px;
+        }
+        a {
+            display: block;
+            text-decoration: none;
+            &:link,
+            &:active,
+            &:visited,
+            &:hover {
+                color: #222;
+            }
+        }
+    }
+}

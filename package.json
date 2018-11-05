@@ -1,0 +1,49 @@
+{
+  "name": "htmlDir",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack --config webpack/base.config.js --progress",
+    "dev": "clear && webpack-dev-server --inline --config webpack/dev.config.js --progress --mode development",
+    "prod": "webpack --config webpack/prod.config.js --mode production",
+    "test": "webpack --config webpack/test.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.4",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^1.0.0",
+    "cssnano": "^4.1.7",
+    "cssnano-preset-advanced": "^4.0.5",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-aspect-ratio-mini": "0.0.2",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.2.0",
+    "postcss-px-to-viewport": "0.0.3",
+    "postcss-pxtorem": "^4.0.1",
+    "postcss-viewport-units": "^0.1.6",
+    "postcss-write-svg": "^3.0.1",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.22.0",
+    "webpack-bundle-analyzer": "^3.0.3",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
+    "webpack-merge": "^4.1.4"
+  },
+  "dependencies": {
+    "better-scroll": "^1.13.2",
+    "lazy-load-img": "^3.0.8",
+    "node-sass": "^4.9.4"
+  }
+}
