@@ -187,22 +187,22 @@
                         2018-11-09
                     </div>
                     <div class="time show_time">
-                        2018-11-09
+                        2018-11-10
                     </div>
                     <div class="time">
-                        2018-11-09
+                        2018-11-11
                     </div>
                 </div>
             </div>
             <div class="remark">
-                添加备注（0/20）
+                添加备注（<span>0</span>/20）
             </div>
             <div class="remark_input">
                 <input type="text">
             </div>
             <div class="bottom">
                 <div class="btn_cancel" onclick="handlerContact()">取消</div>
-                <div class="btn_sure">确定</div>
+                <div class="btn_sure" onclick="sureEditInfo()">确定</div>
             </div>
         </div>
     </div>
@@ -280,7 +280,57 @@
         }
     })();
     var LoginToken = $_GET['LoginToken']
-    console.log('token is', LoginToken);
+    var g_type = 1,
+        g_filter = 1;
+
+    function tabSelect(ct, className) {
+        $(ct).on('click', function (e) {
+            if (e.target && e.target.tagName.toLocaleLowerCase() == 'div') {
+                $.each($(ct + '>div'), function (index, el) {
+                    $(this).removeClass(className)
+                })
+            }
+            e.target.classList.add(className)
+            $('.tab_loading').fadeIn();
+            let index = $(ct + '>div').index(e.target);
+            g_type = index;
+            $.each($('.wrapper_ct>div'), function () {
+                $(this).fadeOut()
+            })
+            $('.wrapper' + index).fadeIn()
+            handlerTab(20, 1, index + 1, $('.downNav>li').index($('.select_li')) + 1)
+        })
+    }
+
+    function getPayRecord(UserId) {
+        apiPost(reqUrl + "/H5Eleven2018/getRechargeList", {
+            "LoginToken": LoginToken,
+            "UserId": UserId,
+        }, function (data) {
+            console.log('ddd', data.Data)
+            // var str=data
+            if (data.Status) {
+                if (data.Data.length > 0) {
+                    var str = data.Data.map(item => {
+                        return '  <tr>' +
+                            '<td>2018-10-03</td>' +
+                            '<td>1000</td>' +
+                            '</tr>'
+                    })
+                    $('.pay_record .middle tbody').append(str.join(''));
+                }
+
+            } else {
+                jqueryAlert({
+                    'content': data['ErrorMsg'],
+                    'closeTime': 1000
+                })
+            }
+            $('.tab_loading').fadeOut();
+
+        }, false);
+    }
+
     function handlerTab(Count, Position, type, filter) {
         apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
             "LoginToken": LoginToken,
@@ -295,7 +345,8 @@
                 if (data.Data.length > 0) {
                     var str = data.Data.map(item => {
                         return '<li><div class="title">' +
-                            '<div class="left">' + item.G_XM + '</div>' +
+                            '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
+                            '</div>' +
                             '<div class="right">' +
                             '<span onclick="handlerContact()">' + item.G_SFLX + '</span>' +
                             '<div class="img_ct">' +
@@ -362,7 +413,7 @@
                             '</div>' +
                             '</div>' + '</li>'
                     })
-                    $('.wrapper0 > .content').html(str.join(''));
+                    $('.wrapper' + (g_type - 1) + ' > .content').html(str.join(''));
                 }
 
             } else {
@@ -375,24 +426,95 @@
 
         }, false);
     }
+    console.log($('.time.show_time').text())
 
-</script>
-<script>
+    function editInfo(UserId, ) {
+        var status = $('input[name="custom_status"]').index($('input[name="custom_status"]:checked'))
+        console.log('staue', status);
+        var time = status == 1 ? $('.time.show_time').text() : ''
+        apiPost(reqUrl + "/H5Eleven2018/editInfo", {
+            "LoginToken": LoginToken,
+            "UserId": UserId,
+            'status': status+1,
+            'contactDate': time,
+            'remark': $('.remark_input input').val()
+        }, function (data) {
+            console.log('ddd', data.Data)
+            // var str=data
+            if (data.Status) {
+                jqueryAlert({
+                    'content': '编辑成功',
+                    'closeTime': 1000
+                })
+            } else {
+                jqueryAlert({
+                    'content': data['ErrorMsg'],
+                    'closeTime': 1000
+                })
+            }
+            $('.custom_ct').fadeToggle()
+            $('.tab_loading').fadeOut();
+
+        }, false);
+    }
+
+    function getEditInfo(UserId, ) {
+        apiPost(reqUrl + "/H5Eleven2018/getEditInfo", {
+            "LoginToken": LoginToken,
+            "UserId": UserId,
+        }, function (data) {
+            console.log('ddd', data.Data)
+            // var str=data
+            if (data.Status) {
+                jqueryAlert({
+                    'content': '编辑成功',
+                    'closeTime': 1000
+                })
+            } else {
+                jqueryAlert({
+                    'content': data['ErrorMsg'],
+                    'closeTime': 1000
+                })
+            }
+            $('.tab_loading').fadeOut();
+
+        }, false);
+    }
+
+    function handlerInput() {
+        console.log('xxxxxxxxxx')
+        var length = $(this).val().length;
+        if (length >= 20) {
+            $(this).val($(this).val().substr(0, 20))
+        }
+        $('.remark>span').text(length.toString())
+    }
+    $('.remark_input input').on('input', handlerInput)
+
+    function sureEditInfo() {
+        editInfo(1)
+    }
+
     $('.top>.btn_all').on('touchstart', function (e) {
         e.stopPropagation()
         $('.down_ct').fadeIn()
     })
 
+
+
     $('body').on('click', function (e) {
-        console.log('x33xxxxx')
-        if (e.target && e.target.className.toLocaleLowerCase() != 'btn_all' && e.target.className.toLocaleLowerCase() != 'down_ct' && e.target.tagName.toLocaleLowerCase() != 'li' && $('.down_ct').css('display') == 'block') {
+        if (e.target && e.target.className.toLocaleLowerCase() != 'btn_all' && e.target.className.toLocaleLowerCase() !=
+            'down_ct' && e.target.tagName.toLocaleLowerCase() != 'li' && $('.down_ct').css('display') ==
+            'block') {
             $('.down_ct').fadeOut();
         }
     })
+
     $('.down_ct').on('touchend', function (e) {
         e.stopPropagation()
         $(this).fadeOut();
     })
+
     function singleSelect(ct, className) {
         $(ct).on('click', function (e) {
             if (e.target && e.target.tagName.toLocaleLowerCase() == 'div') {
@@ -403,36 +525,26 @@
             e.target.classList.add(className)
         })
     }
-    function tabSelect(ct, className) {
-        $(ct).on('click', function (e) {
-            if (e.target && e.target.tagName.toLocaleLowerCase() == 'div') {
-                $.each($(ct + '>div'), function (index, el) {
-                    $(this).removeClass(className)
-                })
-            }
-            e.target.classList.add(className)
-            $('.tab_loading').fadeIn();
-            let index = $(ct + '>div').index(e.target)
-            $.each($('.wrapper_ct>div'), function () {
-                $(this).fadeOut()
-            })
-            $('.wrapper' + index).fadeIn()
-            handlerTab(20, 1, index + 1, $('.downNav>li').index($('.select_li')) + 1)
-        })
-    }
+
+
+
     tabLoading_toggle()
     // downnav 
     $('.downNav').on('click', function (e) {
         if (e.target && e.target.tagName.toLocaleLowerCase() == 'li') {
-                $.each($('.downNav>li'), function (index, el) {
-                    $(this).removeClass('select_li')
-                })
-            }
-            e.target.classList.add('select_li')
-        let filter = $('.downNav>li').index(e.target) + 1;
+            $.each($('.downNav>li'), function (index, el) {
+                $(this).removeClass('select_li')
+            })
+        }
+        e.target.classList.add('select_li')
+        let index = $('.downNav>li').index(e.target) + 1;
+        g_filter = index;
         $('.btn_all').text($(e.target).text())
-        handlerTab(20, 1, $('.sel_command> div').index($('.show_border')) + 1, filter)
+        handlerTab(20, 1, $('.sel_command> div').index($('.show_border')) + 1, index)
     })
+    // document ready invoke 
+    handlerTab(20, 1, 1, 1)
+
     function tabLoading_toggle() {
         $('.tab_loading').fadeToggle()
     }
@@ -440,12 +552,16 @@
     tabSelect('.sel_command', 'show_border')
     // open pay record modal
     function handlerPayRecord() {
-        $('.pay_ct').fadeToggle()
+        $('.pay_ct').fadeToggle();
+
     }
+
+
     // close pay record modal
     function handlerContact(content) {
         $('.custom_ct').fadeToggle()
     }
+
     function handlerSelectTime() {
         $('.select_time').fadeOut();
     }
@@ -458,6 +574,7 @@
         // }
         e.stopPropagation();
     })
+
     function handlerNextContact() {
         $('.select_time').fadeIn()
     }
