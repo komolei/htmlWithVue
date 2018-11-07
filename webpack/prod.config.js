@@ -165,6 +165,7 @@ const prod = {
             sourceMap: false,
             uglifyOptions: {
                 ie8: false,
+
                 ecma: 8,
                 parse: {
                     bare_returns: false,
@@ -173,21 +174,29 @@ const prod = {
                 // mangle: {
                 //     safari10: true,
                 // },
-                mangle: true,
+                mangle: false,
+                // mangle: {
+                //     keep_fnames: true,
+                //     reserved :['getEditInfo','handlerPayRecord']
+                // },
                 output: {
                     comments: false,
                     beautify: false,
                     // safari10: true,
                 },
                 compress: {
-                    drop_console: true
+                    drop_console: true,
+                    keep_fnames: true,
+                    pure_funcs :['getEditInfo','handlerPayRecord']
+                    
                 },
-                warnings: false
+                warnings: false,
+
             },
             // extractComments: true,
         }),
         new HtmlWebpackPlugin({
-            title: 'ybren ',
+            title: '双十一 ',
             template: 'src/h11.html'
         })
         // new webpack.DefinePlugin({ // <-- 减少 React 大小的关键

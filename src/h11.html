@@ -43,9 +43,9 @@
 
 <body>
 
-    <div class="leftCt">
+    <!-- <div class="leftCt">
         xxx
-    </div>
+    </div> -->
     <div id="app">
         <div class="mask">
             <div class="loader">
@@ -120,12 +120,17 @@
 
                         </ul>
                     </div>
+                    <div class="wrapper3 hide" id="wrapper1">
+                        <ul class="content">
+
+                        </ul>
+                    </div>
                 </div>
 
             </div>
         </div>
 
-        <div class="svg_ct hide">
+        <div class="svg_ct">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="42" height="42" fill="white">
                 <circle transform="translate(8 0)" cx="0" cy="16" r="0" stroke='#111'>
                     <animate attributeName="r" values="0; 4; 0; 0" dur="1.2s" repeatCount="indefinite" begin="0"
@@ -183,15 +188,9 @@
                     设置下次联系时间
                 </div>
                 <div class="time_box">
-                    <div class="time">
-                        2018-11-09
-                    </div>
-                    <div class="time show_time">
-                        2018-11-10
-                    </div>
-                    <div class="time">
-                        2018-11-11
-                    </div>
+                    <div class="time">2018-11-09</div>
+                    <div class="time show_time">2018-11-10</div>
+                    <div class="time">2018-11-11</div>
                 </div>
             </div>
             <div class="remark">
@@ -214,39 +213,20 @@
             <div class="middle">
                 <table>
                     <tbody>
-                        <tr>
+                        <!-- <tr>
                             <th>充值时间</th>
                             <th>充值金额（元）</th>
-                        </tr>
-                        <tr>
-                            <td>2018-10-03</td>
-                            <td>1000</td>
-                        </tr>
-                        <tr>
-                            <td>2018-10-03</td>
-                            <td>1000</td>
-                        </tr>
-                        <tr>
-                            <td>2018-10-03</td>
-                            <td>1000</td>
-                        </tr>
-                        <tr>
-                            <td>2018-10-03</td>
-                            <td>1000</td>
-                        </tr>
-                        <tr>
-                            <td>2018-10-03</td>
-                            <td>1000</td>
-                        </tr>
-                        <tr>
-                            <td>2018-10-03</td>
-                            <td>1000</td>
-                        </tr>
+                        </tr> -->
+                        <!-- <div class="pay_record_div">
+                            <div class="pay_record_ct">
+
+                            </div>
+                        </div> -->
                     </tbody>
                 </table>
             </div>
             <div class="bottom">
-                <div class="cancel" onclick="handlerPayRecord()">关闭</div>
+                <div class="cancel" onclick="closedPayRecord()">关闭</div>
             </div>
         </div>
     </div>
@@ -261,8 +241,18 @@
 <!-- <script src="./static/pulltorefresh.js"></script> -->
 <!-- <script src="https://cdn.bootcss.com/pulltorefreshjs/0.1.14/pulltorefresh.js"></script> -->
 <!-- <script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/lib/bscroll.min.js"></script> -->
+
+
 <script>
-    var reqUrl = "http://apptest.ybren.com/index.php/";
+
+    document.ready = function () {
+        setTimeout(() => {
+            $('.mask').fadeOut()
+        }, 1000);
+        $('.tab_loading').fadeOut();
+
+    }
+    var reqUrl = "https://apptest.ybren.com/index.php/";
     //
     var $_GET = (function () {
         var url = window.document.location.href.toString();
@@ -281,7 +271,11 @@
     })();
     var LoginToken = $_GET['LoginToken']
     var g_type = 1,
-        g_filter = 1;
+        g_filter = 1,
+        g_count = 6, g_position = 1;
+    var g_isLock = false;
+    var g_userId;
+    // btn click event
 
     function tabSelect(ct, className) {
         $(ct).on('click', function (e) {
@@ -294,30 +288,50 @@
             $('.tab_loading').fadeIn();
             let index = $(ct + '>div').index(e.target);
             g_type = index;
+            if (g_position > 1) { g_position = 1 }
             $.each($('.wrapper_ct>div'), function () {
                 $(this).fadeOut()
             })
             $('.wrapper' + index).fadeIn()
-            handlerTab(20, 1, index + 1, $('.downNav>li').index($('.select_li')) + 1)
+            g_isLock = false;
+            handlerTab(g_count, g_position, index + 1, $('.downNav>li').index($('.select_li')) + 1)
         })
     }
+
+    tabSelect('.sel_command', 'show_border')
 
     function getPayRecord(UserId) {
         apiPost(reqUrl + "/H5Eleven2018/getRechargeList", {
             "LoginToken": LoginToken,
-            "UserId": UserId,
+            "userId": UserId,
         }, function (data) {
-            console.log('ddd', data.Data)
             // var str=data
             if (data.Status) {
                 if (data.Data.length > 0) {
                     var str = data.Data.map(item => {
-                        return '  <tr>' +
-                            '<td>2018-10-03</td>' +
-                            '<td>1000</td>' +
+                        return '<tr>' +
+                            '<td>' + item.CJSJ + '</td>' +
+                            '<td>' + item.JE + '</td>' +
                             '</tr>'
                     })
-                    $('.pay_record .middle tbody').append(str.join(''));
+                    var newStr = ' <tr>' +
+                        '<th>充值时间</th>' +
+                        '<th>充值金额（元）</th>' +
+                        '</tr>'
+                    str.unshift(newStr)
+                    $('.pay_record .middle tbody').html(str.join(''));
+                    // $('.pay_record_div').html(newStr.join(''));
+                } else {
+                    var str = ' <tr>' +
+                        '<th>充值时间</th>' +
+                        '<th>充值金额（元）</th>' +
+                        '</tr>' + '<tr>' +
+                        '<td></td>' +
+                        '<td></td>' +
+                        '</tr>'
+                    // $('.pay_record_ct').html(str);
+                    $('.pay_record .middle tbody').html(str.join(''));
+
                 }
 
             } else {
@@ -332,6 +346,11 @@
     }
 
     function handlerTab(Count, Position, type, filter) {
+        g_count = Count;
+        g_position = Position;
+        g_type = type;
+        // $('.svg_ct').show();
+        if (g_isLock) return $('.svg_ct').fadeOut();
         apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
             "LoginToken": LoginToken,
             "Count": Count,
@@ -339,8 +358,209 @@
             "type": type,
             "filter": filter,
         }, function (data) {
-            console.log('ddd', data.Data)
-            // var str=data
+            if (data.Status) {
+                if (g_position > 1) {
+                    if (data.Data.length > 0) {
+                        var str = data.Data.map(item => {
+                            return '<li><div class="title">' +
+                                '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
+                                '</div>' +
+                                '<div class="right">' +
+                                '<button onclick="getEditInfo(' + item.G_GKBH + ')">' + item.G_SFLX + '</button>' +
+                                '<div>' + item.XCLXSJ + '</div>' +
+                                '<div class="img_ct">' +
+                                '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="content_c">' +
+                                '<div class="left">' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '现金余额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_QBYE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '活动余额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_HDYE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '累计消费金额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_LJXFJE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '备注：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_BZ +
+                                '</span>' +
+                                '</p>' +
+                                '<div class="btns">' +
+                                '<div class="btn_history" onclick="handlerHistoryOrder(' + JSON.stringify(item).replace(/"/g, '&quot;') + ')">历史订单</div>' +
+                                '<div class="record" onclick="handlerPayRecord(' + item.G_GKBH + ')">充值记录</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="right">' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '购买频次：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_LJXFCS + '次' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '最近消费时间：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_ZJYCXF +
+                                '</span>' +
+                                '</p>' +
+                                '</div>' +
+                                '</div>' + '</li>'
+                        })
+                        $('.wrapper' + (g_type - 1) + ' > .content').append(str.join(''));
+                    } else {
+                        // $('.wrapper' + (g_type - 1) + ' > .content').append('<div style="text-align:center">暂无数据...</div>');
+                        jqueryAlert({
+                            'content': '暂无数据...',
+                            'closeTime': 1000
+                        })
+                        g_isLock = true;
+                        $('.svg_ct').fadeOut();
+                    }
+                } else {
+                    if (data.Data.length > 0) {
+                        var str = data.Data.map(item => {
+                            return '<li><div class="title">' +
+                                '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
+                                '</div>' +
+                                '<div class="right">' +
+                                '<button onclick="getEditInfo(' + item.G_GKBH + ')">' + item.G_SFLX + '</button>' +
+                                '<div>' + item.XCLXSJ + '</div>' +
+                                '<div class="img_ct">' +
+                                '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="content_c">' +
+                                '<div class="left">' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '现金余额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_QBYE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '活动余额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_HDYE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '累计消费金额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_LJXFJE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '备注：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_BZ +
+                                '</span>' +
+                                '</p>' +
+                                '<div class="btns">' +
+                                '<div class="btn_history" onclick="handlerHistoryOrder(' + JSON.stringify(item).replace(/"/g, '&quot;') + ')">历史订单</div>' +
+                                '<div class="record" onclick="handlerPayRecord(' + item.G_GKBH + ')">充值记录</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="right">' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '购买频次：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_LJXFCS + '次' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '最近消费时间：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_ZJYCXF +
+                                '</span>' +
+                                '</p>' +
+                                '</div>' +
+                                '</div>' + '</li>'
+                        })
+                        $('.wrapper' + (g_type - 1) + ' > .content').html(str.join(''));
+                    } else {
+                        // $('.wrapper' + (g_type - 1) + ' > .content').append('<div style="text-align:center">暂无数据...</div>');
+                        jqueryAlert({
+                            'content': '暂无数据...',
+                            'closeTime': 1000
+                        })
+                        g_isLock = true;
+                        $('.svg_ct').fadeOut();
+                    }
+                }
+            } else {
+                jqueryAlert({
+                    'content': data['ErrorMsg'],
+                    'closeTime': 1000
+                })
+            }
+            $('.tab_loading').fadeOut();
+
+        }, false);
+    }
+
+    // document ready invoke 
+    handlerTab(6, 1, 1, 1)
+
+    function handlerHistoryOrder(item) {
+        var userName = item.G_XM, gender = item.G_XB, cellPhone = item.G_SJHM, userId = item.G_GKBH;
+        var str = 'VC=YBRHistoryOrderViewController&userName=' + userName + '&gender=' + gender + '&cellPhone=' + cellPhone + '&userId=' + userId;
+        var newStr = encodeURI(str)
+        console.log(newStr);
+        showHtmlcallNative(888, newStr, 888);
+    }
+
+    function handlerTabofEditInfo(Count, Position, type, filter) {
+        g_count = Count;
+        g_position = Position;
+        g_type = type;
+        // $('.svg_ct').show();
+        if (g_isLock) return $('.svg_ct').fadeOut();
+        apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
+            "LoginToken": LoginToken,
+            "Count": Count,
+            "Position": Position,
+            "type": type,
+            "filter": filter,
+        }, function (data) {
             if (data.Status) {
                 if (data.Data.length > 0) {
                     var str = data.Data.map(item => {
@@ -348,7 +568,8 @@
                             '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
                             '</div>' +
                             '<div class="right">' +
-                            '<span onclick="handlerContact()">' + item.G_SFLX + '</span>' +
+                            '<button onclick="getEditInfo(' + item.G_GKBH + ')">' + item.G_SFLX + '</button>' +
+                            '<div>' + item.XCLXSJ + '</div>' +
                             '<div class="img_ct">' +
                             '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
                             '</div>' +
@@ -389,8 +610,8 @@
                             '</span>' +
                             '</p>' +
                             '<div class="btns">' +
-                            '<div class="btn_history">历史订单</div>' +
-                            '<div class="record" onclick="handlerPayRecord()">充值记录</div>' +
+                            '<div class="btn_history" onclick="handlerHistoryOrder(' + JSON.stringify(item).replace(/"/g, '&quot;') + ')">历史订单</div>' +
+                            '<div class="record" onclick="handlerPayRecord(' + item.G_GKBH + ')">充值记录</div>' +
                             '</div>' +
                             '</div>' +
                             '<div class="right">' +
@@ -414,6 +635,14 @@
                             '</div>' + '</li>'
                     })
                     $('.wrapper' + (g_type - 1) + ' > .content').html(str.join(''));
+                } else {
+                    // $('.wrapper' + (g_type - 1) + ' > .content').append('<div style="text-align:center">暂无数据...</div>');
+                    jqueryAlert({
+                        'content': '暂无数据...',
+                        'closeTime': 1000
+                    })
+                    g_isLock = true;
+                    $('.svg_ct').fadeOut();
                 }
 
             } else {
@@ -426,26 +655,25 @@
 
         }, false);
     }
-    console.log($('.time.show_time').text())
 
-    function editInfo(UserId, ) {
+    // userId
+    function editInfo(UserId) {
         var status = $('input[name="custom_status"]').index($('input[name="custom_status"]:checked'))
-        console.log('staue', status);
         var time = status == 1 ? $('.time.show_time').text() : ''
         apiPost(reqUrl + "/H5Eleven2018/editInfo", {
             "LoginToken": LoginToken,
-            "UserId": UserId,
-            'status': status+1,
+            "userId": UserId,
+            'status': status + 1,
             'contactDate': time,
             'remark': $('.remark_input input').val()
         }, function (data) {
-            console.log('ddd', data.Data)
             // var str=data
             if (data.Status) {
                 jqueryAlert({
                     'content': '编辑成功',
                     'closeTime': 1000
                 })
+                handlerTabofEditInfo(g_count, g_position, g_type, g_filter)
             } else {
                 jqueryAlert({
                     'content': data['ErrorMsg'],
@@ -458,18 +686,40 @@
         }, false);
     }
 
-    function getEditInfo(UserId, ) {
+    function getEditInfo(UserId) {
+        g_userId = UserId;
         apiPost(reqUrl + "/H5Eleven2018/getEditInfo", {
             "LoginToken": LoginToken,
-            "UserId": UserId,
+            "userId": UserId,
         }, function (data) {
-            console.log('ddd', data.Data)
             // var str=data
             if (data.Status) {
-                jqueryAlert({
-                    'content': '编辑成功',
-                    'closeTime': 1000
-                })
+                if (JSON.stringify(data.Data) != '{}') {
+                    var newData = data.Data;
+                    var index = newData.G_SFLX == null ? 0 : Number(newData.G_SFLX) - 1
+                    $('input[name="custom_status"]').eq(index).attr("checked", "checked");
+                    if (newData.G_SFLX != null && Number(newData.G_SFLX) == 2) {
+                        $('.select_time').fadeIn()
+                        $.each($('.time_box div'), function (index, el) {
+                            $(el).removeClass('show_time')
+                            if ($(el).text() == newData.XCLXSJ) {
+                                $('.time_box div').eq(index).addClass('show_time')
+                            }
+                        })
+                    } else {
+                        $('.select_time').hide()
+                    }
+                    $('.remark_input input').val(newData.G_BZ);
+                    $('.remark>span').text(newData.G_BZ.length.toString())
+                    handlerContact()
+
+                } else {
+                    handlerContact()
+                }
+                // jqueryAlert({
+                //     'content': '编辑成功',
+                //     'closeTime': 1000
+                // })
             } else {
                 jqueryAlert({
                     'content': data['ErrorMsg'],
@@ -482,7 +732,6 @@
     }
 
     function handlerInput() {
-        console.log('xxxxxxxxxx')
         var length = $(this).val().length;
         if (length >= 20) {
             $(this).val($(this).val().substr(0, 20))
@@ -492,15 +741,13 @@
     $('.remark_input input').on('input', handlerInput)
 
     function sureEditInfo() {
-        editInfo(1)
+        editInfo(g_userId)
     }
 
     $('.top>.btn_all').on('touchstart', function (e) {
         e.stopPropagation()
         $('.down_ct').fadeIn()
     })
-
-
 
     $('body').on('click', function (e) {
         if (e.target && e.target.className.toLocaleLowerCase() != 'btn_all' && e.target.className.toLocaleLowerCase() !=
@@ -525,11 +772,211 @@
             e.target.classList.add(className)
         })
     }
-
-
+    singleSelect('.time_box', "show_time")
 
     tabLoading_toggle()
     // downnav 
+    function handlerTabOfDownNav(Count, Position, type, filter) {
+        g_count = Count;
+        g_position = Position;
+        g_type = type;
+        // $('.svg_ct').show();
+        if (g_isLock) return $('.svg_ct').fadeOut();
+        apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
+            "LoginToken": LoginToken,
+            "Count": Count,
+            "Position": Position,
+            "type": type,
+            "filter": filter,
+        }, function (data) {
+            // var str=data
+            if (data.Status) {
+                if (g_position > 1) {
+                    if (data.Data.length > 0) {
+                        var str = data.Data.map(item => {
+                            return '<li><div class="title">' +
+                                '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
+                                '</div>' +
+                                '<div class="right">' +
+                                '<button onclick="getEditInfo(' + item.G_GKBH + ')">' + item.G_SFLX + '</button>' +
+                                '<div>' + item.XCLXSJ + '</div>' +
+                                '<div class="img_ct">' +
+                                '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="content_c">' +
+                                '<div class="left">' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '现金余额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_QBYE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '活动余额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_HDYE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '累计消费金额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_LJXFJE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '备注：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_BZ +
+                                '</span>' +
+                                '</p>' +
+                                '<div class="btns">' +
+                                '<div class="btn_history" onclick="handlerHistoryOrder(' + JSON.stringify(item).replace(/"/g, '&quot;') + ')">历史订单</div>' +
+                                '<div class="record" onclick="handlerPayRecord(' + item.G_GKBH + ')">充值记录</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="right">' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '购买频次：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_LJXFCS + '次' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '最近消费时间：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_ZJYCXF +
+                                '</span>' +
+                                '</p>' +
+                                '</div>' +
+                                '</div>' + '</li>'
+                        })
+                        $('.wrapper' + (g_type - 1) + ' > .content').append(str.join(''));
+                    } else {
+                        $('.wrapper' + (g_type - 1) + ' > .content').html('');
+
+                        // $('.wrapper' + (g_type - 1) + ' > .content').append('<div style="text-align:center">暂无数据...</div>');
+                        jqueryAlert({
+                            'content': '暂无数据...',
+                            'closeTime': 1000
+                        })
+                        g_isLock = true;
+                        $('.svg_ct').fadeOut();
+                    }
+                } else {
+                    if (data.Data.length > 0) {
+                        var str = data.Data.map(item => {
+                            return '<li><div class="title">' +
+                                '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
+                                '</div>' +
+                                '<div class="right">' +
+                                '<button onclick="getEditInfo(' + item.G_GKBH + ')">' + item.G_SFLX + '</button>' +
+                                '<div>' + item.XCLXSJ + '</div>' +
+
+                                '<div class="img_ct">' +
+                                '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="content_c">' +
+                                '<div class="left">' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '现金余额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_QBYE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '活动余额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_HDYE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '累计消费金额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_LJXFJE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '备注：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_BZ +
+                                '</span>' +
+                                '</p>' +
+                                '<div class="btns">' +
+                                '<div class="btn_history" onclick="handlerHistoryOrder(' + JSON.stringify(item).replace(/"/g, '&quot;') + ')">历史订单</div>' +
+                                '<div class="record" onclick="handlerPayRecord(' + item.G_GKBH + ')">充值记录</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="right">' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '购买频次：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_LJXFCS + '次' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '最近消费时间：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_ZJYCXF +
+                                '</span>' +
+                                '</p>' +
+                                '</div>' +
+                                '</div>' + '</li>'
+                        })
+                        $('.wrapper' + (g_type - 1) + ' > .content').html(str.join(''));
+                    } else {
+                        $('.wrapper' + (g_type - 1) + ' > .content').html('');
+
+                        // $('.wrapper' + (g_type - 1) + ' > .content').append('<div style="text-align:center">暂无数据...</div>');
+                        jqueryAlert({
+                            'content': '暂无数据...',
+                            'closeTime': 1000
+                        })
+                        g_isLock = true;
+                        $('.svg_ct').fadeOut();
+                    }
+                }
+
+
+            } else {
+                jqueryAlert({
+                    'content': data['ErrorMsg'],
+                    'closeTime': 1000
+                })
+            }
+            $('.tab_loading').fadeOut();
+            $('.svg_ct').fadeOut();
+
+        }, false);
+    }
+
     $('.downNav').on('click', function (e) {
         if (e.target && e.target.tagName.toLocaleLowerCase() == 'li') {
             $.each($('.downNav>li'), function (index, el) {
@@ -540,33 +987,38 @@
         let index = $('.downNav>li').index(e.target) + 1;
         g_filter = index;
         $('.btn_all').text($(e.target).text())
-        handlerTab(20, 1, $('.sel_command> div').index($('.show_border')) + 1, index)
+        g_isLock = false;
+        g_position = 1;
+        handlerTabOfDownNav(g_count, g_position, $('.sel_command> div').index($('.show_border')) + 1, index)
     })
-    // document ready invoke 
-    handlerTab(20, 1, 1, 1)
+
 
     function tabLoading_toggle() {
         $('.tab_loading').fadeToggle()
     }
-    // btn click event
-    tabSelect('.sel_command', 'show_border')
+
     // open pay record modal
-    function handlerPayRecord() {
+    function handlerPayRecord(userId) {
+        $('.pay_ct').fadeToggle();
+        getPayRecord(userId)
+        // getPayRecord('10208808')
+    }
+    function closedPayRecord() {
         $('.pay_ct').fadeToggle();
 
     }
-
 
     // close pay record modal
     function handlerContact(content) {
         $('.custom_ct').fadeToggle()
     }
-
+    // function handlerContactOfCustom(userId){
+    //     getEditInfo(userId)
+    // }
     function handlerSelectTime() {
         $('.select_time').fadeOut();
     }
 
-    singleSelect('.time_box', "show_time")
 
     $('.custom_ct').on('click', function (e) {
         // if (e.target && e.target.className.toLocaleLowerCase() != 'custom') {
@@ -578,8 +1030,81 @@
     function handlerNextContact() {
         $('.select_time').fadeIn()
     }
+
+    // debounce
+    function debounce(func, wait, immediate) {
+
+        var timeout, result;
+
+        var debounced = function () {
+            var context = this;
+            var args = arguments;
+
+            if (timeout) clearTimeout(timeout);
+            if (immediate) {
+                // 如果已经执行过，不再执行
+                var callNow = !timeout;
+                timeout = setTimeout(function () {
+                    timeout = null;
+                }, wait)
+                if (callNow) result = func.apply(context, args)
+            }
+            else {
+                timeout = setTimeout(function () {
+                    func.apply(context, args)
+                }, wait);
+            }
+            return result;
+        };
+
+        debounced.cancel = function () {
+            clearTimeout(timeout);
+            timeout = null;
+        };
+
+        return debounced;
+    }
+    //获取滚动条当前的位置 
+    function getScrollTop() {
+        var scrollTop = 0;
+        if (document.documentElement && document.documentElement.scrollTop) {
+            scrollTop = document.documentElement.scrollTop;
+        } else if (document.body) {
+            scrollTop = document.body.scrollTop;
+        }
+        return scrollTop;
+    }
+
+    //获取当前可视范围的高度 
+    function getClientHeight() {
+        var clientHeight = 0;
+        if (document.body.clientHeight && document.documentElement.clientHeight) {
+            clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+        } else {
+            clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+        }
+        return clientHeight;
+    }
+
+    //获取文档完整的高度 
+    function getScrollHeight() {
+        return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    }
+    window.onscroll = function () {
+        if (getScrollTop() + getClientHeight() == getScrollHeight()) {
+            $('.svg_ct').removeClass('hide')
+            // $('.wrapper>.content').append(`<li>xxx</li>`)
+            debounce(handlerTab(g_count, g_position + 1, g_type, g_filter), 1000, true)
+            // setTimeout(() => {
+
+            //     handlerTab(g_count, g_position + 1, g_type, g_filter)
+            // }, 1000);
+            // handlerTab(g_count+1, g_position, g_type, g_filter)
+        } else {
+            $('.svg_ct').addClass('hide');
+        }
+    }
+
+
 </script>
-
-
-
 </html>
