@@ -76,7 +76,7 @@
         var url = window.document.location.href.toString();
         if (url.indexOf('localhost') != -1) { return reqUrl = "https://apptest.ybren.com/index.php/"; }
         else {
-            if (url.indexOf('htest') != -1) {
+            if (url.indexOf('test') != -1) {
                 return reqUrl = "https://apptest.ybren.com/index.php/";
             } else {
                 return reqUrl = "https://app.ybren.com/index.php/";
@@ -84,7 +84,6 @@
         }
 
     })()
-    console.log('xxx', reqUrl);
     var $_GET = (function () {
         var url = window.document.location.href.toString();
         var u = url.split("?");
@@ -145,11 +144,11 @@
                             '<td>' + item.JE + '</td>' +
                             '</tr>'
                     })
-                    // var newStr = '<tr>' +
-                    //     '<th>充值时间</th>' +
-                    //     '<th>充值金额（元）</th>' +
-                    //     '</tr>'
-                    // str.unshift(newStr)
+                    var newStr = '<tr>' +
+                        '<th>充值时间</th>' +
+                        '<th>充值金额（元）</th>' +
+                        '</tr>'
+                    str.unshift(newStr)
                     $('.pay_record .middle tbody').html(str.join(''));
                 } else {
                     var str = '<tr>' +
