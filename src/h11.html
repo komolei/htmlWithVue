@@ -32,6 +32,7 @@
     </title>
     <link rel="shortcut icon" type="image/x-icon" href="//appybrencdn.oss-cn-hangzhou.aliyuncs.com/PC/web/favicon.ico"
         media="screen">
+    <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
     <!-- <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script> -->
     <!-- 阿里高清方案 -->
     <!-- <script>!function (e) { function t(a) { if (i[a]) return i[a].exports; var n = i[a] = { exports: {}, id: a, loaded: !1 }; return e[a].call(n.exports, n, n.exports, t), n.loaded = !0, n.exports } var i = {}; return t.m = e, t.c = i, t.p = "", t(0) }([function (e, t) { "use strict"; Object.defineProperty(t, "__esModule", { value: !0 }); var i = window; t["default"] = i.flex = function (e, t) { var a = e || 100, n = t || 1, r = i.document, o = navigator.userAgent, d = o.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i), l = o.match(/U3\/((\d+|\.){5,})/i), c = l && parseInt(l[1].split(".").join(""), 10) >= 80, p = navigator.appVersion.match(/(iphone|ipad|ipod)/gi), s = i.devicePixelRatio || 1; p || d && d[1] > 534 || c || (s = 1); var u = 1 / s, m = r.querySelector('meta[name="viewport"]'); m || (m = r.createElement("meta"), m.setAttribute("name", "viewport"), r.head.appendChild(m)), m.setAttribute("content", "width=device-width,user-scalable=no,initial-scale=" + u + ",maximum-scale=" + u + ",minimum-scale=" + u), r.documentElement.style.fontSize = a / 2 * s * n + "px" }, e.exports = t["default"] }]);
@@ -200,7 +201,7 @@
                 <input type="text">
             </div>
             <div class="bottom">
-                <div class="btn_cancel" onclick="handlerContact()">取消</div>
+                <div class="btn_cancel" onclick="handlerContact_closed()">取消</div>
                 <div class="btn_sure" onclick="sureEditInfo()">确定</div>
             </div>
         </div>
@@ -213,15 +214,6 @@
             <div class="middle">
                 <table>
                     <tbody>
-                        <!-- <tr>
-                            <th>充值时间</th>
-                            <th>充值金额（元）</th>
-                        </tr> -->
-                        <!-- <div class="pay_record_div">
-                            <div class="pay_record_ct">
-
-                            </div>
-                        </div> -->
                     </tbody>
                 </table>
             </div>
@@ -242,7 +234,6 @@
 <!-- <script src="https://cdn.bootcss.com/pulltorefreshjs/0.1.14/pulltorefresh.js"></script> -->
 <!-- <script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/lib/bscroll.min.js"></script> -->
 
-
 <script>
 
     document.ready = function () {
@@ -252,8 +243,85 @@
         $('.tab_loading').fadeOut();
 
     }
-    var reqUrl = "https://apptest.ybren.com/index.php/";
+    var ModalHelper = (function (bodyCls) {
+        var scrollTop;
+        return {
+            afterOpen: function () {
+                scrollTop = document.scrollingElement.scrollTop;
+                $('.ct').addClass(bodyCls);
+                $('.ct').css('top', -scrollTop)
+                // document.body.style.top = -scrollTop + 'px';
+            },
+            beforeClose: function () {
+                // document.body.classList.remove(bodyCls);
+                $('.ct').removeClass(bodyCls)
+                document.scrollingElement.scrollTop = scrollTop;
+            }
+        };
+    })('modal-open')
+    $('.custom_ct').on('touchmove', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+    })
+    // $('.pay_ct').on('touchstart', function (e) {
+    //     e.stopPropagation();
+    //     e.preventDefault();
+    // })
+    // var contentNode=$('.pay_ct .middle')
+    // console.log('contentNode',contentNode);
+    // $('.pay_ct .middle').on('touchmove', function (e) {
+    //     e.returnValue = true;
+    //     e.stopPropagation();
+    // })
+
+    // contentNode.on('touchstart', e => {
+    //     status = 1
+    //     startY = e.targetTouches[0].pageY
+    //     console.log('startY',startY);
+    // }, false)
+
+    // contentNode.on('touchmove', e => {
+    //     // 判定一次就够了
+    //     if (status !== 1) return
+
+    //     status = 2
+
+    //     let t = e.target || e.srcElement
+    //     let py = e.targetTouches[0].pageY
+    //     let ch = t.clientHeight // 内容可视高度
+    //     let sh = t.scrollHeight // 内容滚动高度
+    //     let st = t.scrollTop // 当前滚动高度
+
+    //     // 已经到头部尽头了还要向上滑动，阻止它
+    //     if (st === 0 && startY < py) {
+    //         e.preventDefault()
+    //     }
+
+    //     // 已经到低部尽头了还要向下滑动，阻止它
+    //     if ((st === sh - ch) && startY > py) {
+    //         e.preventDefault()
+    //     }
+    // }, false)
+
+    // contentNode.on('touchend', e => {
+    //     status = 0
+    // }, false)
+
+    var reqUrl;
     //
+    !(function () {
+        var url = window.document.location.href.toString();
+        if (url.indexOf('localhost') != -1) { return reqUrl = "https://apptest.ybren.com/index.php/"; }
+        else {
+            if (url.indexOf('htest') != -1) {
+                return reqUrl = "https://apptest.ybren.com/index.php/";
+            } else {
+                return reqUrl = "https://app.ybren.com/index.php/";
+            }
+        }
+
+    })()
+    console.log('xxx', reqUrl);
     var $_GET = (function () {
         var url = window.document.location.href.toString();
         var u = url.split("?");
@@ -272,7 +340,7 @@
     var LoginToken = $_GET['LoginToken']
     var g_type = 1,
         g_filter = 1,
-        g_count = 6, g_position = 1;
+        g_count = 20, g_position = 1;
     var g_isLock = false;
     var g_userId;
     // btn click event
@@ -308,21 +376,20 @@
             // var str=data
             if (data.Status) {
                 if (data.Data.length > 0) {
-                    var str = data.Data.map(item => {
+                    var str = data.Data.map(function (item) {
                         return '<tr>' +
                             '<td>' + item.CJSJ + '</td>' +
                             '<td>' + item.JE + '</td>' +
                             '</tr>'
                     })
-                    var newStr = ' <tr>' +
-                        '<th>充值时间</th>' +
-                        '<th>充值金额（元）</th>' +
-                        '</tr>'
-                    str.unshift(newStr)
+                    // var newStr = '<tr>' +
+                    //     '<th>充值时间</th>' +
+                    //     '<th>充值金额（元）</th>' +
+                    //     '</tr>'
+                    // str.unshift(newStr)
                     $('.pay_record .middle tbody').html(str.join(''));
-                    // $('.pay_record_div').html(newStr.join(''));
                 } else {
-                    var str = ' <tr>' +
+                    var str = '<tr>' +
                         '<th>充值时间</th>' +
                         '<th>充值金额（元）</th>' +
                         '</tr>' + '<tr>' +
@@ -330,7 +397,7 @@
                         '<td></td>' +
                         '</tr>'
                     // $('.pay_record_ct').html(str);
-                    $('.pay_record .middle tbody').html(str.join(''));
+                    $('.pay_record .middle tbody').html(str);
 
                 }
 
@@ -350,7 +417,7 @@
         g_position = Position;
         g_type = type;
         // $('.svg_ct').show();
-        if (g_isLock) return $('.svg_ct').fadeOut();
+        if (g_isLock) return;
         apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
             "LoginToken": LoginToken,
             "Count": Count,
@@ -361,14 +428,14 @@
             if (data.Status) {
                 if (g_position > 1) {
                     if (data.Data.length > 0) {
-                        var str = data.Data.map(item => {
+                        var str = data.Data.map(function (item) {
                             return '<li><div class="title">' +
                                 '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
                                 '</div>' +
                                 '<div class="right">' +
-                                '<button onclick="getEditInfo(' + item.G_GKBH + ')">' + item.G_SFLX + '</button>' +
+                                '<button>' + item.G_SFLX + '</button>' +
                                 '<div>' + item.XCLXSJ + '</div>' +
-                                '<div class="img_ct">' +
+                                '<div class="img_ct" onclick="getEditInfo(' + item.G_GKBH + ')">' +
                                 '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
                                 '</div>' +
                                 '</div>' +
@@ -437,21 +504,21 @@
                         // $('.wrapper' + (g_type - 1) + ' > .content').append('<div style="text-align:center">暂无数据...</div>');
                         jqueryAlert({
                             'content': '暂无数据...',
-                            'closeTime': 1000
+                            'closeTime': 1500
                         })
                         g_isLock = true;
                         $('.svg_ct').fadeOut();
                     }
                 } else {
                     if (data.Data.length > 0) {
-                        var str = data.Data.map(item => {
+                        var str = data.Data.map(function (item) {
                             return '<li><div class="title">' +
                                 '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
                                 '</div>' +
                                 '<div class="right">' +
-                                '<button onclick="getEditInfo(' + item.G_GKBH + ')">' + item.G_SFLX + '</button>' +
+                                '<button>' + item.G_SFLX + '</button>' +
                                 '<div>' + item.XCLXSJ + '</div>' +
-                                '<div class="img_ct">' +
+                                '<div class="img_ct" onclick="getEditInfo(' + item.G_GKBH + ')">' +
                                 '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
                                 '</div>' +
                                 '</div>' +
@@ -529,16 +596,16 @@
             } else {
                 jqueryAlert({
                     'content': data['ErrorMsg'],
-                    'closeTime': 1000
+                    'closeTime': 2000
                 })
             }
             $('.tab_loading').fadeOut();
-
+            $('.svg_ct').fadeOut();
         }, false);
     }
 
     // document ready invoke 
-    handlerTab(6, 1, 1, 1)
+    handlerTab(20, 1, 1, 1)
 
     function handlerHistoryOrder(item) {
         var userName = item.G_XM, gender = item.G_XB, cellPhone = item.G_SJHM, userId = item.G_GKBH;
@@ -553,7 +620,7 @@
         g_position = Position;
         g_type = type;
         // $('.svg_ct').show();
-        if (g_isLock) return $('.svg_ct').fadeOut();
+        if (g_isLock) return;
         apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
             "LoginToken": LoginToken,
             "Count": Count,
@@ -563,14 +630,14 @@
         }, function (data) {
             if (data.Status) {
                 if (data.Data.length > 0) {
-                    var str = data.Data.map(item => {
+                    var str = data.Data.map(function (item) {
                         return '<li><div class="title">' +
                             '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
                             '</div>' +
                             '<div class="right">' +
-                            '<button onclick="getEditInfo(' + item.G_GKBH + ')">' + item.G_SFLX + '</button>' +
+                            '<button>' + item.G_SFLX + '</button>' +
                             '<div>' + item.XCLXSJ + '</div>' +
-                            '<div class="img_ct">' +
+                            '<div class="img_ct" onclick="getEditInfo(' + item.G_GKBH + ')">' +
                             '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
                             '</div>' +
                             '</div>' +
@@ -636,12 +703,14 @@
                     })
                     $('.wrapper' + (g_type - 1) + ' > .content').html(str.join(''));
                 } else {
-                    // $('.wrapper' + (g_type - 1) + ' > .content').append('<div style="text-align:center">暂无数据...</div>');
-                    jqueryAlert({
-                        'content': '暂无数据...',
-                        'closeTime': 1000
-                    })
+                    $('.wrapper' + (g_type - 1) + ' > .content').html('');
                     g_isLock = true;
+
+                    // $('.wrapper' + (g_type - 1) + ' > .content').append('<div style="text-align:center">暂无数据...</div>');
+                    // jqueryAlert({
+                    //     'content': '暂无数据...',
+                    //     'closeTime': 1000
+                    // })
                     $('.svg_ct').fadeOut();
                 }
 
@@ -652,7 +721,7 @@
                 })
             }
             $('.tab_loading').fadeOut();
-
+            $('.svg_ct').fadeOut();
         }, false);
     }
 
@@ -673,15 +742,18 @@
                     'content': '编辑成功',
                     'closeTime': 1000
                 })
-                handlerTabofEditInfo(g_count, g_position, g_type, g_filter)
+                g_isLock = false;
+                handlerTabofEditInfo(g_count, 1, g_type, g_filter)
             } else {
                 jqueryAlert({
                     'content': data['ErrorMsg'],
                     'closeTime': 1000
                 })
             }
-            $('.custom_ct').fadeToggle()
+            // $('.custom_ct').fadeToggle()
+
             $('.tab_loading').fadeOut();
+            handlerContact_closed()
 
         }, false);
     }
@@ -793,14 +865,14 @@
             if (data.Status) {
                 if (g_position > 1) {
                     if (data.Data.length > 0) {
-                        var str = data.Data.map(item => {
+                        var str = data.Data.map(function (item) {
                             return '<li><div class="title">' +
                                 '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
                                 '</div>' +
                                 '<div class="right">' +
-                                '<button onclick="getEditInfo(' + item.G_GKBH + ')">' + item.G_SFLX + '</button>' +
+                                '<button>' + item.G_SFLX + '</button>' +
                                 '<div>' + item.XCLXSJ + '</div>' +
-                                '<div class="img_ct">' +
+                                '<div class="img_ct" onclick="getEditInfo(' + item.G_GKBH + ')">' +
                                 '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
                                 '</div>' +
                                 '</div>' +
@@ -878,15 +950,14 @@
                     }
                 } else {
                     if (data.Data.length > 0) {
-                        var str = data.Data.map(item => {
+                        var str = data.Data.map(function (item) {
                             return '<li><div class="title">' +
                                 '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
                                 '</div>' +
                                 '<div class="right">' +
-                                '<button onclick="getEditInfo(' + item.G_GKBH + ')">' + item.G_SFLX + '</button>' +
+                                '<button>' + item.G_SFLX + '</button>' +
                                 '<div>' + item.XCLXSJ + '</div>' +
-
-                                '<div class="img_ct">' +
+                                '<div class="img_ct" onclick="getEditInfo(' + item.G_GKBH + ')">' +
                                 '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
                                 '</div>' +
                                 '</div>' +
@@ -999,18 +1070,25 @@
 
     // open pay record modal
     function handlerPayRecord(userId) {
-        $('.pay_ct').fadeToggle();
+        $('.pay_ct').fadeIn();
         getPayRecord(userId)
-        // getPayRecord('10208808')
+        // ModalHelper.afterOpen()
+
     }
     function closedPayRecord() {
-        $('.pay_ct').fadeToggle();
+        $('.pay_ct').fadeOut();
+        // ModalHelper.beforeClose()
+        // $('.pay_record .middle tbody').empty();
 
     }
 
-    // close pay record modal
     function handlerContact(content) {
         $('.custom_ct').fadeToggle()
+        ModalHelper.afterOpen()
+    }
+    function handlerContact_closed(content) {
+        $('.custom_ct').fadeToggle()
+        ModalHelper.beforeClose()
     }
     // function handlerContactOfCustom(userId){
     //     getEditInfo(userId)
@@ -1095,16 +1173,13 @@
             $('.svg_ct').removeClass('hide')
             // $('.wrapper>.content').append(`<li>xxx</li>`)
             debounce(handlerTab(g_count, g_position + 1, g_type, g_filter), 1000, true)
-            // setTimeout(() => {
-
-            //     handlerTab(g_count, g_position + 1, g_type, g_filter)
-            // }, 1000);
-            // handlerTab(g_count+1, g_position, g_type, g_filter)
         } else {
             $('.svg_ct').addClass('hide');
         }
     }
 
 
+
 </script>
+
 </html>
