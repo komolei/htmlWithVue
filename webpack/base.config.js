@@ -144,7 +144,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             title: 'ybren',
-            template: 'src/h11.html'
+            template: 'src/h12.html'
         })
     ],
 }

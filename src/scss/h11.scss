@@ -31,6 +31,8 @@ body {
     display: flex;
     flex-flow: row nowrap; // overflow: hidden;
     height: 100%;
+    // position: absolute;
+    // z-index: -1;
 }
 
 .modal-open {
@@ -93,6 +95,38 @@ body {
         }
         .content {
             box-sizing: border-box;
+            .search_ct{
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: flex-start;
+                align-items: center;
+                height: 50px;
+                line-height: 50px;
+                padding: 0 30px;
+                input{
+                    border: 1px solid #c8c7cc;
+                    outline-color: azure;
+                    line-height: 28px;
+                    margin-right: 20px;
+                    border-radius: 12px;
+                    min-width: 150px;
+                    text-indent: 1em;
+                }
+                div{
+                    width: 80px;
+                    height: 28px;
+                    border: 1px solid #c8c7cc;
+                    color: #fff;
+                    background: #0a1831;
+                    border-radius: 22px;
+                    font-size: 15px;
+                    font-family: PingFangSC-Medium;
+                    font-weight: 500;
+                    line-height: 28px;
+                    text-align: center;
+                }
+
+            }
             .top {
                 height: 50px;
                 line-height: 50px;

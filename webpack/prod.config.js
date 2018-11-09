@@ -147,7 +147,7 @@ const prod = {
     // },
     plugins: [
 
-        new ExtractTextPlugin('css/[name].f96ec250f4f92f153ea6.bundle.css'),
+        new ExtractTextPlugin('css/[name].tf96ec250f4f92f153ea6.bundle.css'),
         new OptimizeCssAssetsPlugin({
             assetNameRegExp: /\.css$/g,
             cssProcessor: require('cssnano'),

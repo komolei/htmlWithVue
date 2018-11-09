@@ -1,11 +1,230 @@
+<!DOCTYPE html>
+<html>
 
-    document.ready = function () {
-        setTimeout(() => {
-            $('.mask').fadeOut()
-        }, 1000);
-        $('.tab_loading').fadeOut();
+<head>
+    <meta charset="UTF-8">
+    <!-- set `maximum-scale` for some compatibility issues -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>
+        双十一
+    </title>
+    <link rel="shortcut icon" type="image/x-icon" href="//appybrencdn.oss-cn-hangzhou.aliyuncs.com/PC/web/favicon.ico"
+        media="screen">
+    <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+    <!-- <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script> -->
+    <!-- 阿里高清方案 -->
+    <!-- <script>!function (e) { function t(a) { if (i[a]) return i[a].exports; var n = i[a] = { exports: {}, id: a, loaded: !1 }; return e[a].call(n.exports, n, n.exports, t), n.loaded = !0, n.exports } var i = {}; return t.m = e, t.c = i, t.p = "", t(0) }([function (e, t) { "use strict"; Object.defineProperty(t, "__esModule", { value: !0 }); var i = window; t["default"] = i.flex = function (e, t) { var a = e || 100, n = t || 1, r = i.document, o = navigator.userAgent, d = o.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i), l = o.match(/U3\/((\d+|\.){5,})/i), c = l && parseInt(l[1].split(".").join(""), 10) >= 80, p = navigator.appVersion.match(/(iphone|ipad|ipod)/gi), s = i.devicePixelRatio || 1; p || d && d[1] > 534 || c || (s = 1); var u = 1 / s, m = r.querySelector('meta[name="viewport"]'); m || (m = r.createElement("meta"), m.setAttribute("name", "viewport"), r.head.appendChild(m)), m.setAttribute("content", "width=device-width,user-scalable=no,initial-scale=" + u + ",maximum-scale=" + u + ",minimum-scale=" + u), r.documentElement.style.fontSize = a / 2 * s * n + "px" }, e.exports = t["default"] }]);
+        flex(100, 1);
+    </script> -->
+    <!-- <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-rc.4/polyfill.min.js"></script> -->
+    <link rel="stylesheet" href="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/h12/css/main.tf96ec250f4f92f153ea6.bundle.css">
 
-    }
+</head>
+
+<body>
+
+    <!-- <div class="leftCt">
+        xxx
+    </div> -->
+    <div id="app">
+        <div class="ct">
+            <div class="nav">
+                <div class="command">
+                    筛选客户：
+                </div>
+                <div class="sel_command">
+                    <div class="tab1 show_border">累计消费金额</div>
+                    <div class="tab2">现金余额</div>
+                    <div class="tab3">最近购买时间</div>
+                    <div class="tab4">下次联系时间</div>
+                </div>
+            </div>
+            <div class="content">
+
+                <div class="top">
+                    <span class="btn_all">全部</span>
+                    <div class="down_ct hide">
+                        <div class="triangle"></div>
+                        <ul class="downNav">
+                            <li class="select_li">全部</li>
+                            <li>未联系</li>
+                            <li>同意充值</li>
+                            <li>拒绝充值</li>
+                            <li>下次联系</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="search_ct">
+                    <input type="text" name="search_text" id="">
+                    <div onclick="sureSearch()">确定</div>
+
+                </div>
+                <div class="wrapper_ct">
+                    <div class="wrapper0" id="wrapper0">
+                        <ul class="content">
+
+                        </ul>
+                    </div>
+                    <div class="wrapper1 hide" id="wrapper1">
+                        <ul class="content">
+                        </ul>
+                    </div>
+                    <div class="wrapper2 hide" id="wrapper1">
+                        <ul class="content">
+
+                        </ul>
+                    </div>
+                    <div class="wrapper3 hide" id="wrapper1">
+                        <ul class="content">
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="svg_ct">
+
+        </div>
+
+    </div>
+    <div class="custom_ct hide">
+        <div class="custom">
+            <div class="top">
+                请设置客户状态
+            </div>
+            <div class="middle">
+                <label for="no_contact">
+                    <div class="icon_ct">
+                        <input type="radio" name="custom_status" id="no_contact" value="未联系" checked="checked" onchange="handlerSelectTime()">
+                        <span class="icon_check"></span>
+                    </div>
+                    <div class="text">未联系</div>
+                </label>
+                <label for="next_contact">
+                    <div class="icon_ct">
+                        <input type="radio" name="custom_status" id="next_contact" value="下次联系" onchange="handlerNextContact()">
+                        <span class="icon_check"></span>
+                    </div>
+                    <div class="text">下次联系</div>
+                </label>
+                <label for="agree_pay">
+                    <div class="icon_ct">
+                        <input type="radio" name="custom_status" id="agree_pay" value="同意充值" onchange="handlerSelectTime()">
+                        <span class="icon_check"></span>
+                    </div>
+                    <div class="text">同意充值</div>
+                </label>
+                <label for="adjust_pay">
+                    <div class="icon_ct">
+                        <input type="radio" name="custom_status" id="adjust_pay" value="拒绝充值" onchange="handlerSelectTime()">
+                        <span class="icon_check"></span>
+                    </div>
+                    <div class="text">拒绝充值</div>
+                </label>
+            </div>
+            <div class="select_time hide">
+                <div class="top">
+                    设置下次联系时间
+                </div>
+                <div class="time_box">
+                    <div class="time">2018-11-09</div>
+                    <div class="time show_time">2018-11-10</div>
+                    <div class="time">2018-11-11</div>
+                </div>
+            </div>
+            <div class="remark">
+                添加备注（<span>0</span>/20）
+            </div>
+            <div class="remark_input">
+                <input type="text">
+            </div>
+            <div class="bottom">
+                <div class="btn_cancel" onclick="handlerContact_closed()">取消</div>
+                <div class="btn_sure" onclick="sureEditInfo()">确定</div>
+            </div>
+        </div>
+    </div>
+    <div class="pay_ct hide">
+        <div class="pay_record">
+            <div class="top">
+                充值记录
+            </div>
+            <div class="middle">
+                <table>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="bottom">
+                <div class="cancel" onclick="closedPayRecord()">关闭</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://ossstatic.ybren.com/Wx/Public/js/jquery.1.7.2.min.js"></script>
+<script src="https://ossstatic.ybren.com/Wx/Public/js/app_function.js"></script>
+<script src="https://ossstatic.ybren.com/Wx/Public/js/jquery.openapp.js"></script>
+<script src="https://ossstatic.ybren.com/Public/js/noncestamp.js?v=1"></script>
+<script src="https://ossstatic.ybren.com/App/Public/Home/js/alert.js"></script>
+
+<!-- <script src="./static/pulltorefresh.js"></script> -->
+<!-- <script src="https://cdn.bootcss.com/pulltorefreshjs/0.1.14/pulltorefresh.js"></script> -->
+<!-- <script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/lib/bscroll.min.js"></script> -->
+
+<script>
+
+    (function () {
+        if (document.scrollingElement) {
+            return
+        }
+        var element = null
+        function scrollingElement() {
+            if (element) {
+                return element
+            } else if (document.body.scrollTop) {
+                // speed up if scrollTop > 0
+                return (element = document.body)
+            }
+            var iframe = document.createElement('iframe')
+            iframe.style.height = '1px'
+            document.documentElement.appendChild(iframe)
+            var doc = iframe.contentWindow.document
+            doc.write('<!DOCTYPE html><div style="height:9999em">x</div>')
+            doc.close()
+            var isCompliant = doc.documentElement.scrollHeight > doc.body.scrollHeight
+            iframe.parentNode.removeChild(iframe)
+            return (element = isCompliant ? document.documentElement : document.body)
+        }
+        Object.defineProperty(document, 'scrollingElement', {
+            get: scrollingElement
+        })
+    })()
     var ModalHelper = (function (bodyCls) {
         var scrollTop;
         return {
@@ -22,61 +241,23 @@
             }
         };
     })('modal-open')
-    $('.custom_ct').on('touchmove', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-    })
-    // $('.pay_ct').on('touchstart', function (e) {
-    //     e.stopPropagation();
-    //     e.preventDefault();
-    // })
-    // var contentNode=$('.pay_ct .middle')
-    // console.log('contentNode',contentNode);
-    // $('.pay_ct .middle').on('touchmove', function (e) {
-    //     e.returnValue = true;
-    //     e.stopPropagation();
-    // })
 
-    // contentNode.on('touchstart', e => {
-    //     status = 1
-    //     startY = e.targetTouches[0].pageY
-    //     console.log('startY',startY);
-    // }, false)
-
-    // contentNode.on('touchmove', e => {
-    //     // 判定一次就够了
-    //     if (status !== 1) return
-
-    //     status = 2
-
-    //     let t = e.target || e.srcElement
-    //     let py = e.targetTouches[0].pageY
-    //     let ch = t.clientHeight // 内容可视高度
-    //     let sh = t.scrollHeight // 内容滚动高度
-    //     let st = t.scrollTop // 当前滚动高度
-
-    //     // 已经到头部尽头了还要向上滑动，阻止它
-    //     if (st === 0 && startY < py) {
-    //         e.preventDefault()
-    //     }
-
-    //     // 已经到低部尽头了还要向下滑动，阻止它
-    //     if ((st === sh - ch) && startY > py) {
-    //         e.preventDefault()
-    //     }
-    // }, false)
-
-    // contentNode.on('touchend', e => {
-    //     status = 0
-    // }, false)
+    // window.onerror = function (message) {
+    //     $('#app').append('<li>' + message + '</li>')
+    // }
 
     var reqUrl;
-    //
-    !(function () {
+    (function () {
         var url = window.document.location.href.toString();
-        if (url.indexOf('localhost') != -1) { return reqUrl = "https://apptest.ybren.com/index.php/"; }
+        // if (url.indexOf('localhost') != -1) {
+        if (/localhost/g.test(url)) {
+            // return reqUrl = "https://apptest.ybren.com/index.php/";
+            return reqUrl = "http://test.ybren.com/index.php/";
+
+        }
         else {
-            if (url.indexOf('test') != -1) {
+            // if (url.indexOf('test') != -1) {
+            if (/test/g.test(url)) {
                 return reqUrl = "https://apptest.ybren.com/index.php/";
             } else {
                 return reqUrl = "https://app.ybren.com/index.php/";
@@ -102,299 +283,26 @@
     var LoginToken = $_GET['LoginToken']
     var g_type = 1,
         g_filter = 1,
-        g_count = 20, g_position = 1;
+        g_count = 520, g_position = 1;
     var g_isLock = false;
     var g_userId;
     // btn click event
 
-    function tabSelect(ct, className) {
-        $(ct).on('click', function (e) {
-            if (e.target && e.target.tagName.toLocaleLowerCase() == 'div') {
-                $.each($(ct + '>div'), function (index, el) {
-                    $(this).removeClass(className)
-                })
-            }
-            e.target.classList.add(className)
-            $('.tab_loading').fadeIn();
-            let index = $(ct + '>div').index(e.target);
-            g_type = index;
-            if (g_position > 1) { g_position = 1 }
-            $.each($('.wrapper_ct>div'), function () {
-                $(this).fadeOut()
-            })
-            $('.wrapper' + index).fadeIn()
-            g_isLock = false;
-            handlerTab(g_count, g_position, index + 1, $('.downNav>li').index($('.select_li')) + 1)
-        })
-    }
-
-    tabSelect('.sel_command', 'show_border')
-
-    function getPayRecord(UserId) {
-        apiPost(reqUrl + "/H5Eleven2018/getRechargeList", {
-            "LoginToken": LoginToken,
-            "userId": UserId,
-        }, function (data) {
-            // var str=data
-            if (data.Status) {
-                if (data.Data.length > 0) {
-                    var str = data.Data.map(function (item) {
-                        return '<tr>' +
-                            '<td>' + item.CJSJ + '</td>' +
-                            '<td>' + item.JE + '</td>' +
-                            '</tr>'
-                    })
-                    var newStr = '<tr>' +
-                        '<th>充值时间</th>' +
-                        '<th>充值金额（元）</th>' +
-                        '</tr>'
-                    str.unshift(newStr)
-                    $('.pay_record .middle tbody').html(str.join(''));
-                } else {
-                    var str = '<tr>' +
-                        '<th>充值时间</th>' +
-                        '<th>充值金额（元）</th>' +
-                        '</tr>' + '<tr>' +
-                        '<td></td>' +
-                        '<td></td>' +
-                        '</tr>'
-                    // $('.pay_record_ct').html(str);
-                    $('.pay_record .middle tbody').html(str);
-
-                }
-
-            } else {
-                jqueryAlert({
-                    'content': data['ErrorMsg'],
-                    'closeTime': 1000
-                })
-            }
-            $('.tab_loading').fadeOut();
-
-        }, false);
-    }
-
-    function handlerTab(Count, Position, type, filter) {
-        g_count = Count;
-        g_position = Position;
-        g_type = type;
-        // $('.svg_ct').show();
-        if (g_isLock) return;
+    function sureSearch() {
         apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
             "LoginToken": LoginToken,
-            "Count": Count,
-            "Position": Position,
-            "type": type,
-            "filter": filter,
-        }, function (data) {
-            if (data.Status) {
-                if (g_position > 1) {
-                    if (data.Data.length > 0) {
-                        var str = data.Data.map(function (item) {
-                            return '<li><div class="title">' +
-                                '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
-                                '</div>' +
-                                '<div class="right">' +
-                                '<button>' + item.G_SFLX + '</button>' +
-                                '<div>' + item.XCLXSJ + '</div>' +
-                                '<div class="img_ct" onclick="getEditInfo(' + item.G_GKBH + ')">' +
-                                '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="content_c">' +
-                                '<div class="left">' +
-                                '<p>' +
-                                '<span class="text_1">' +
-                                '现金余额：' +
-                                '</span>' +
-                                '<span class="text_2">' +
-                                item.G_QBYE + '元' +
-                                '</span>' +
-                                '</p>' +
-                                '<p>' +
-                                '<span class="text_1">' +
-                                '活动余额：' +
-                                '</span>' +
-                                '<span class="text_2">' +
-                                item.G_HDYE + '元' +
-                                '</span>' +
-                                '</p>' +
-                                '<p>' +
-                                '<span class="text_1">' +
-                                '累计消费金额：' +
-                                '</span>' +
-                                '<span class="text_2">' +
-                                item.S_LJXFJE + '元' +
-                                '</span>' +
-                                '</p>' +
-                                '<p>' +
-                                '<span class="text_1">' +
-                                '备注：' +
-                                '</span>' +
-                                '<span class="text_2">' +
-                                item.G_BZ +
-                                '</span>' +
-                                '</p>' +
-                                '<div class="btns">' +
-                                '<div class="btn_history" onclick="handlerHistoryOrder(' + JSON.stringify(item).replace(/"/g, '&quot;') + ')">历史订单</div>' +
-                                '<div class="record" onclick="handlerPayRecord(' + item.G_GKBH + ')">充值记录</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="right">' +
-                                '<p>' +
-                                '<span class="text_1">' +
-                                '购买频次：' +
-                                '</span>' +
-                                '<span class="text_2">' +
-                                item.S_LJXFCS + '次' +
-                                '</span>' +
-                                '</p>' +
-                                '<p>' +
-                                '<span class="text_1">' +
-                                '最近消费时间：' +
-                                '</span>' +
-                                '<span class="text_2">' +
-                                item.S_ZJYCXF +
-                                '</span>' +
-                                '</p>' +
-                                '</div>' +
-                                '</div>' + '</li>'
-                        })
-                        $('.wrapper' + (g_type - 1) + ' > .content').append(str.join(''));
-                    } else {
-                        // $('.wrapper' + (g_type - 1) + ' > .content').append('<div style="text-align:center">暂无数据...</div>');
-                        jqueryAlert({
-                            'content': '暂无数据...',
-                            'closeTime': 1500
-                        })
-                        g_isLock = true;
-                        $('.svg_ct').fadeOut();
-                    }
-                } else {
-                    if (data.Data.length > 0) {
-                        var str = data.Data.map(function (item) {
-                            return '<li><div class="title">' +
-                                '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
-                                '</div>' +
-                                '<div class="right">' +
-                                '<button>' + item.G_SFLX + '</button>' +
-                                '<div>' + item.XCLXSJ + '</div>' +
-                                '<div class="img_ct" onclick="getEditInfo(' + item.G_GKBH + ')">' +
-                                '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="content_c">' +
-                                '<div class="left">' +
-                                '<p>' +
-                                '<span class="text_1">' +
-                                '现金余额：' +
-                                '</span>' +
-                                '<span class="text_2">' +
-                                item.G_QBYE + '元' +
-                                '</span>' +
-                                '</p>' +
-                                '<p>' +
-                                '<span class="text_1">' +
-                                '活动余额：' +
-                                '</span>' +
-                                '<span class="text_2">' +
-                                item.G_HDYE + '元' +
-                                '</span>' +
-                                '</p>' +
-                                '<p>' +
-                                '<span class="text_1">' +
-                                '累计消费金额：' +
-                                '</span>' +
-                                '<span class="text_2">' +
-                                item.S_LJXFJE + '元' +
-                                '</span>' +
-                                '</p>' +
-                                '<p>' +
-                                '<span class="text_1">' +
-                                '备注：' +
-                                '</span>' +
-                                '<span class="text_2">' +
-                                item.G_BZ +
-                                '</span>' +
-                                '</p>' +
-                                '<div class="btns">' +
-                                '<div class="btn_history" onclick="handlerHistoryOrder(' + JSON.stringify(item).replace(/"/g, '&quot;') + ')">历史订单</div>' +
-                                '<div class="record" onclick="handlerPayRecord(' + item.G_GKBH + ')">充值记录</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="right">' +
-                                '<p>' +
-                                '<span class="text_1">' +
-                                '购买频次：' +
-                                '</span>' +
-                                '<span class="text_2">' +
-                                item.S_LJXFCS + '次' +
-                                '</span>' +
-                                '</p>' +
-                                '<p>' +
-                                '<span class="text_1">' +
-                                '最近消费时间：' +
-                                '</span>' +
-                                '<span class="text_2">' +
-                                item.S_ZJYCXF +
-                                '</span>' +
-                                '</p>' +
-                                '</div>' +
-                                '</div>' + '</li>'
-                        })
-                        $('.wrapper' + (g_type - 1) + ' > .content').html(str.join(''));
-                    } else {
-                        // $('.wrapper' + (g_type - 1) + ' > .content').append('<div style="text-align:center">暂无数据...</div>');
-                        jqueryAlert({
-                            'content': '暂无数据...',
-                            'closeTime': 1000
-                        })
-                        g_isLock = true;
-                        $('.svg_ct').fadeOut();
-                    }
-                }
-            } else {
-                jqueryAlert({
-                    'content': data['ErrorMsg'],
-                    'closeTime': 2000
-                })
-            }
-            $('.tab_loading').fadeOut();
-            $('.svg_ct').fadeOut();
-        }, false);
-    }
-
-    // document ready invoke 
-    handlerTab(20, 1, 1, 1)
-
-    function handlerHistoryOrder(item) {
-        var userName = item.G_XM, gender = item.G_XB, cellPhone = item.G_SJHM, userId = item.G_GKBH;
-        var str = 'VC=YBRHistoryOrderViewController&userName=' + userName + '&gender=' + gender + '&cellPhone=' + cellPhone + '&userId=' + userId;
-        var newStr = encodeURI(str)
-        console.log(newStr);
-        showHtmlcallNative(888, newStr, 888);
-    }
-
-    function handlerTabofEditInfo(Count, Position, type, filter) {
-        g_count = Count;
-        g_position = Position;
-        g_type = type;
-        // $('.svg_ct').show();
-        if (g_isLock) return;
-        apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
-            "LoginToken": LoginToken,
-            "Count": Count,
-            "Position": Position,
-            "type": type,
-            "filter": filter,
+            "Count": g_count,
+            "Position": g_position,
+            "type": g_type,
+            "filter": g_filter,
+            "keywords": $('input[name="search_text"]').val(),
         }, function (data) {
             if (data.Status) {
                 if (data.Data.length > 0) {
-                    var str = data.Data.map(function (item) {
-                        return '<li><div class="title">' +
-                            '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
+                    var str = [];
+                    for (var i = 0; i < data.Data.length; i++) {
+                        var item = data.Data[i];
+                        var stri = '<li><div class="title">' + '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
                             '</div>' +
                             '<div class="right">' +
                             '<button>' + item.G_SFLX + '</button>' +
@@ -462,7 +370,410 @@
                             '</p>' +
                             '</div>' +
                             '</div>' + '</li>'
+                        str.push(stri);
+                        item = null;
+                        stri = null;
+
+                    }
+
+                    $('.wrapper' + (g_type - 1) + ' > .content').html(str.join(''));
+                } else {
+                    $('.wrapper' + (g_type - 1) + ' > .content').html('');
+                    jqueryAlert({
+                        'content': '暂无数据...',
+                        'closeTime': 1500
                     })
+                    g_isLock = true;
+                }
+            } else {
+                jqueryAlert({
+                    'content': data['ErrorMsg'],
+                    'closeTime': 2000
+                })
+            }
+        }, false);
+
+    }
+    function tabSelect(ct, className) {
+        $(ct).on('click', function (e) {
+            if (e.target && e.target.tagName.toLocaleLowerCase() == 'div') {
+                $.each($(ct + '>div'), function (index, el) {
+                    $(this).removeClass(className)
+                })
+            }
+            e.target.classList.add(className)
+            var index = $(ct + '>div').index(e.target);
+            g_type = index;
+            if (g_position > 1) { g_position = 1 }
+            $.each($('.wrapper_ct>div'), function () {
+                $(this).fadeOut()
+            })
+            $('.wrapper' + index).fadeIn()
+            g_isLock = false;
+            handlerTab(g_count, g_position, index + 1, $('.downNav>li').index($('.select_li')) + 1)
+        })
+    }
+
+    tabSelect('.sel_command', 'show_border')
+
+    function getPayRecord(UserId) {
+        apiPost(reqUrl + "/H5Eleven2018/getRechargeList", {
+            "LoginToken": LoginToken,
+            "userId": UserId,
+        }, function (data) {
+            // var str=data
+            if (data.Status) {
+                if (data.Data.length > 0) {
+                    var str = [];
+                    for (var i = 0; i < data.Data.length; i++) {
+                        var item = data.Data[i]
+                        var newStr = '<tr>' +
+                            '<td>' + item.CJSJ + '</td>' +
+                            '<td>' + item.JE + '</td>' +
+                            '</tr>'
+                        str.push(newStr)
+                        item = null;
+                        newStr = null;
+                    }
+                    var newStr = '<tr>' +
+                        '<th>充值时间</th>' +
+                        '<th>充值金额（元）</th>' +
+                        '</tr>'
+                    str.unshift(newStr)
+                    $('.pay_record .middle tbody').html(str.join(''));
+                } else {
+                    var str = '<tr>' +
+                        '<th>充值时间</th>' +
+                        '<th>充值金额（元）</th>' +
+                        '</tr>' + '<tr>' +
+                        '<td></td>' +
+                        '<td></td>' +
+                        '</tr>'
+                    // $('.pay_record_ct').html(str);
+                    $('.pay_record .middle tbody').html(str);
+
+                }
+
+            } else {
+                jqueryAlert({
+                    'content': data['ErrorMsg'],
+                    'closeTime': 1000
+                })
+            }
+        }, false);
+    }
+
+    function handlerTab(Count, Position, type, filter) {
+        g_count = Count;
+        g_position = Position;
+        g_type = type;
+        apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
+            "LoginToken": LoginToken,
+            "Count": Count,
+            "Position": Position,
+            "type": type,
+            "filter": filter,
+            "keywords": $('input[name="search_text"]').val(),
+
+        }, function (data) {
+            if (data.Status) {
+                if (g_position > 1) {
+                    if (data.Data.length > 0) {
+                        var str = [];
+                        for (var i = 0; i < data.Data.length; i++) {
+                            var item = data.Data[i];
+                            var stri = '<li><div class="title">' + '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
+                                '</div>' +
+                                '<div class="right">' +
+                                '<button>' + item.G_SFLX + '</button>' +
+                                '<div>' + item.XCLXSJ + '</div>' +
+                                '<div class="img_ct" onclick="getEditInfo(' + item.G_GKBH + ')">' +
+                                '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="content_c">' +
+                                '<div class="left">' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '现金余额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_QBYE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '活动余额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_HDYE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '累计消费金额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_LJXFJE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '备注：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_BZ +
+                                '</span>' +
+                                '</p>' +
+                                '<div class="btns">' +
+                                '<div class="btn_history" onclick="handlerHistoryOrder(' + JSON.stringify(item).replace(/"/g, '&quot;') + ')">历史订单</div>' +
+                                '<div class="record" onclick="handlerPayRecord(' + item.G_GKBH + ')">充值记录</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="right">' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '购买频次：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_LJXFCS + '次' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '最近消费时间：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_ZJYCXF +
+                                '</span>' +
+                                '</p>' +
+                                '</div>' +
+                                '</div>' + '</li>'
+                            str.push(stri);
+                            item = null;
+                            stri = null;
+
+                        }
+
+
+
+                        $('.wrapper' + (g_type - 1) + ' > .content').append(str.join(''));
+                    } else {
+                        // $('.wrapper' + (g_type - 1) + ' > .content').append('<div style="text-align:center">暂无数据...</div>');
+                        jqueryAlert({
+                            'content': '暂无数据...',
+                            'closeTime': 1500
+                        })
+                        g_isLock = true;
+                        g_position=1;
+                    }
+                    
+                } else {
+                    if (data.Data.length > 0) {
+                        var str = [];
+                        for (var i = 0; i < data.Data.length; i++) {
+                            var item = data.Data[i];
+                            var stri = '<li><div class="title">' + '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
+                                '</div>' +
+                                '<div class="right">' +
+                                '<button>' + item.G_SFLX + '</button>' +
+                                '<div>' + item.XCLXSJ + '</div>' +
+                                '<div class="img_ct" onclick="getEditInfo(' + item.G_GKBH + ')">' +
+                                '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="content_c">' +
+                                '<div class="left">' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '现金余额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_QBYE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '活动余额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_HDYE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '累计消费金额：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_LJXFJE + '元' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '备注：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.G_BZ +
+                                '</span>' +
+                                '</p>' +
+                                '<div class="btns">' +
+                                '<div class="btn_history" onclick="handlerHistoryOrder(' + JSON.stringify(item).replace(/"/g, '&quot;') + ')">历史订单</div>' +
+                                '<div class="record" onclick="handlerPayRecord(' + item.G_GKBH + ')">充值记录</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="right">' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '购买频次：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_LJXFCS + '次' +
+                                '</span>' +
+                                '</p>' +
+                                '<p>' +
+                                '<span class="text_1">' +
+                                '最近消费时间：' +
+                                '</span>' +
+                                '<span class="text_2">' +
+                                item.S_ZJYCXF +
+                                '</span>' +
+                                '</p>' +
+                                '</div>' +
+                                '</div>' + '</li>'
+                            str.push(stri);
+                            item = null;
+                            stri = null;
+
+                        }
+
+
+
+                        $('.wrapper' + (g_type - 1) + ' > .content').html(str.join(''));
+                    } else {
+                        // $('.wrapper' + (g_type - 1) + ' > .content').append('<div style="text-align:center">暂无数据...</div>');
+                        jqueryAlert({
+                            'content': '暂无数据...',
+                            'closeTime': 1000
+                        })
+                        g_isLock = true;
+                    }
+                }
+            } else {
+                jqueryAlert({
+                    'content': data['ErrorMsg'],
+                    'closeTime': 2000
+                })
+            }
+        }, false);
+    }
+
+    // document ready invoke 
+    handlerTab(520, 1, 1, 1)
+
+    function handlerHistoryOrder(item) {
+        var userName = item.G_XM, gender = item.G_XB, cellPhone = item.G_SJHM, userId = item.G_GKBH;
+        var str = 'VC=YBRHistoryOrderViewController&userName=' + userName + '&gender=' + gender + '&cellPhone=' + cellPhone + '&userId=' + userId;
+        var newStr = encodeURI(str)
+        showHtmlcallNative(888, newStr, 888);
+    }
+
+    function handlerTabofEditInfo(Count, Position, type, filter) {
+        g_count = Count;
+        g_position = Position;
+        g_type = type;
+        // if (g_isLock) return;
+        apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
+            "LoginToken": LoginToken,
+            "Count": Count,
+            "Position": Position,
+            "type": type,
+            "filter": filter,
+            "keywords": $('input[name="search_text"]').val(),
+
+        }, function (data) {
+            if (data.Status) {
+                if (data.Data.length > 0) {
+                    var str = [];
+                    for (var i = 0; i < data.Data.length; i++) {
+                        var item = data.Data[i];
+                        var stri = '<li><div class="title">' + '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
+                            '</div>' +
+                            '<div class="right">' +
+                            '<button>' + item.G_SFLX + '</button>' +
+                            '<div>' + item.XCLXSJ + '</div>' +
+                            '<div class="img_ct" onclick="getEditInfo(' + item.G_GKBH + ')">' +
+                            '<img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="content_c">' +
+                            '<div class="left">' +
+                            '<p>' +
+                            '<span class="text_1">' +
+                            '现金余额：' +
+                            '</span>' +
+                            '<span class="text_2">' +
+                            item.G_QBYE + '元' +
+                            '</span>' +
+                            '</p>' +
+                            '<p>' +
+                            '<span class="text_1">' +
+                            '活动余额：' +
+                            '</span>' +
+                            '<span class="text_2">' +
+                            item.G_HDYE + '元' +
+                            '</span>' +
+                            '</p>' +
+                            '<p>' +
+                            '<span class="text_1">' +
+                            '累计消费金额：' +
+                            '</span>' +
+                            '<span class="text_2">' +
+                            item.S_LJXFJE + '元' +
+                            '</span>' +
+                            '</p>' +
+                            '<p>' +
+                            '<span class="text_1">' +
+                            '备注：' +
+                            '</span>' +
+                            '<span class="text_2">' +
+                            item.G_BZ +
+                            '</span>' +
+                            '</p>' +
+                            '<div class="btns">' +
+                            '<div class="btn_history" onclick="handlerHistoryOrder(' + JSON.stringify(item).replace(/"/g, '&quot;') + ')">历史订单</div>' +
+                            '<div class="record" onclick="handlerPayRecord(' + item.G_GKBH + ')">充值记录</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="right">' +
+                            '<p>' +
+                            '<span class="text_1">' +
+                            '购买频次：' +
+                            '</span>' +
+                            '<span class="text_2">' +
+                            item.S_LJXFCS + '次' +
+                            '</span>' +
+                            '</p>' +
+                            '<p>' +
+                            '<span class="text_1">' +
+                            '最近消费时间：' +
+                            '</span>' +
+                            '<span class="text_2">' +
+                            item.S_ZJYCXF +
+                            '</span>' +
+                            '</p>' +
+                            '</div>' +
+                            '</div>' + '</li>'
+                        str.push(stri);
+                        item = null;
+                        stri = null;
+
+                    }
+
+
+
                     $('.wrapper' + (g_type - 1) + ' > .content').html(str.join(''));
                 } else {
                     $('.wrapper' + (g_type - 1) + ' > .content').html('');
@@ -473,7 +784,6 @@
                     //     'content': '暂无数据...',
                     //     'closeTime': 1000
                     // })
-                    $('.svg_ct').fadeOut();
                 }
 
             } else {
@@ -482,8 +792,6 @@
                     'closeTime': 1000
                 })
             }
-            $('.tab_loading').fadeOut();
-            $('.svg_ct').fadeOut();
         }, false);
     }
 
@@ -514,7 +822,6 @@
             }
             // $('.custom_ct').fadeToggle()
 
-            $('.tab_loading').fadeOut();
             handlerContact_closed()
 
         }, false);
@@ -560,7 +867,6 @@
                     'closeTime': 1000
                 })
             }
-            $('.tab_loading').fadeOut();
 
         }, false);
     }
@@ -578,12 +884,16 @@
         editInfo(g_userId)
     }
 
-    $('.top>.btn_all').on('touchstart', function (e) {
+    $('.top>.btn_all').on('click', function (e) {
         e.stopPropagation()
-        $('.down_ct').fadeIn()
+        // $('.down_ct').fadeIn()
+        $('.down_ct').toggle()
+        $('.triangle').fadeIn();
+        $('.down_ct').fadeIn();
+
     })
 
-    $('body').on('click', function (e) {
+    $('#app').on('click', function (e) {
         if (e.target && e.target.className.toLocaleLowerCase() != 'btn_all' && e.target.className.toLocaleLowerCase() !=
             'down_ct' && e.target.tagName.toLocaleLowerCase() != 'li' && $('.down_ct').css('display') ==
             'block') {
@@ -591,10 +901,10 @@
         }
     })
 
-    $('.down_ct').on('touchend', function (e) {
-        e.stopPropagation()
-        $(this).fadeOut();
-    })
+    // $('.down_ct').on('touchend', function (e) {
+    //     e.stopPropagation()
+    //     $(this).fadeOut();
+    // })
 
     function singleSelect(ct, className) {
         $(ct).on('click', function (e) {
@@ -608,28 +918,29 @@
     }
     singleSelect('.time_box', "show_time")
 
-    tabLoading_toggle()
     // downnav 
     function handlerTabOfDownNav(Count, Position, type, filter) {
         g_count = Count;
         g_position = Position;
         g_type = type;
-        // $('.svg_ct').show();
-        if (g_isLock) return $('.svg_ct').fadeOut();
+        // if (g_isLock) return
         apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
             "LoginToken": LoginToken,
             "Count": Count,
             "Position": Position,
             "type": type,
             "filter": filter,
+            "keywords": $('input[name="search_text"]').val(),
+
         }, function (data) {
             // var str=data
             if (data.Status) {
                 if (g_position > 1) {
                     if (data.Data.length > 0) {
-                        var str = data.Data.map(function (item) {
-                            return '<li><div class="title">' +
-                                '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
+                        var str = [];
+                        for (var i = 0; i < data.Data.length; i++) {
+                            var item = data.Data[i];
+                            var stri = '<li><div class="title">' + '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
                                 '</div>' +
                                 '<div class="right">' +
                                 '<button>' + item.G_SFLX + '</button>' +
@@ -697,7 +1008,14 @@
                                 '</p>' +
                                 '</div>' +
                                 '</div>' + '</li>'
-                        })
+                            str.push(stri);
+                            item = null;
+                            stri = null;
+
+                        }
+
+
+
                         $('.wrapper' + (g_type - 1) + ' > .content').append(str.join(''));
                     } else {
                         $('.wrapper' + (g_type - 1) + ' > .content').html('');
@@ -708,13 +1026,13 @@
                             'closeTime': 1000
                         })
                         g_isLock = true;
-                        $('.svg_ct').fadeOut();
                     }
                 } else {
                     if (data.Data.length > 0) {
-                        var str = data.Data.map(function (item) {
-                            return '<li><div class="title">' +
-                                '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
+                        var str = [];
+                        for (var i = 0; i < data.Data.length; i++) {
+                            var item = data.Data[i];
+                            var stri = '<li><div class="title">' + '<div class="left">' + item.G_XM + '-' + item.G_XB + '-' + item.G_SJHM +
                                 '</div>' +
                                 '<div class="right">' +
                                 '<button>' + item.G_SFLX + '</button>' +
@@ -782,7 +1100,12 @@
                                 '</p>' +
                                 '</div>' +
                                 '</div>' + '</li>'
-                        })
+                            str.push(stri);
+                            item = null;
+                            stri = null;
+
+                        }
+
                         $('.wrapper' + (g_type - 1) + ' > .content').html(str.join(''));
                     } else {
                         $('.wrapper' + (g_type - 1) + ' > .content').html('');
@@ -793,7 +1116,6 @@
                             'closeTime': 1000
                         })
                         g_isLock = true;
-                        $('.svg_ct').fadeOut();
                     }
                 }
 
@@ -804,8 +1126,6 @@
                     'closeTime': 1000
                 })
             }
-            $('.tab_loading').fadeOut();
-            $('.svg_ct').fadeOut();
 
         }, false);
     }
@@ -817,18 +1137,16 @@
             })
         }
         e.target.classList.add('select_li')
-        let index = $('.downNav>li').index(e.target) + 1;
+        var index = $('.downNav>li').index(e.target) + 1;
         g_filter = index;
         $('.btn_all').text($(e.target).text())
         g_isLock = false;
         g_position = 1;
-        handlerTabOfDownNav(g_count, g_position, $('.sel_command> div').index($('.show_border')) + 1, index)
+        handlerTabOfDownNav(g_count, g_position, $('.sel_command> div').index($('.show_border')) + 1, index);
+        $('.down_ct').fadeToggle()
+        $('.triangle').fadeToggle();
+        
     })
-
-
-    function tabLoading_toggle() {
-        $('.tab_loading').fadeToggle()
-    }
 
     // open pay record modal
     function handlerPayRecord(userId) {
@@ -860,85 +1178,19 @@
     }
 
 
-    $('.custom_ct').on('click', function (e) {
-        // if (e.target && e.target.className.toLocaleLowerCase() != 'custom') {
-        //     $('.custom_ct').fadeOut()
-        // }
-        e.stopPropagation();
-    })
-
     function handlerNextContact() {
         $('.select_time').fadeIn()
     }
 
-    // debounce
-    function debounce(func, wait, immediate) {
-
-        var timeout, result;
-
-        var debounced = function () {
-            var context = this;
-            var args = arguments;
-
-            if (timeout) clearTimeout(timeout);
-            if (immediate) {
-                // 如果已经执行过，不再执行
-                var callNow = !timeout;
-                timeout = setTimeout(function () {
-                    timeout = null;
-                }, wait)
-                if (callNow) result = func.apply(context, args)
-            }
-            else {
-                timeout = setTimeout(function () {
-                    func.apply(context, args)
-                }, wait);
-            }
-            return result;
-        };
-
-        debounced.cancel = function () {
-            clearTimeout(timeout);
-            timeout = null;
-        };
-
-        return debounced;
-    }
-    //获取滚动条当前的位置 
-    function getScrollTop() {
-        var scrollTop = 0;
-        if (document.documentElement && document.documentElement.scrollTop) {
-            scrollTop = document.documentElement.scrollTop;
-        } else if (document.body) {
-            scrollTop = document.body.scrollTop;
-        }
-        return scrollTop;
-    }
-
-    //获取当前可视范围的高度 
-    function getClientHeight() {
-        var clientHeight = 0;
-        if (document.body.clientHeight && document.documentElement.clientHeight) {
-            clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
-        } else {
-            clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
-        }
-        return clientHeight;
-    }
-
-    //获取文档完整的高度 
-    function getScrollHeight() {
-        return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-    }
     window.onscroll = function () {
-        if (getScrollTop() + getClientHeight() == getScrollHeight()) {
-            $('.svg_ct').removeClass('hide')
-            // $('.wrapper>.content').append(`<li>xxx</li>`)
-            debounce(handlerTab(g_count, g_position + 1, g_type, g_filter), 1000, true)
-        } else {
-            $('.svg_ct').addClass('hide');
+        // if (getScrollTop() + getClientHeight() == getScrollHeight()) {
+        if ($(document).scrollTop() + $(window).height() == $(document).height()) {
+            handlerTab(g_count, g_position + 1, g_type, g_filter)
         }
     }
 
 
 
+</script>
+
+</html>
