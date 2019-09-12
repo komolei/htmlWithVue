@@ -26,7 +26,7 @@ const dev = {
         watchContentBase: true,
         compress: true,
         host: 'localhost',
-        port: 4000,
+        port: 3000,
         headers: {
             "X-Custom-Foo": "komolei"
         },

@@ -33,32 +33,32 @@ module.exports = {
         // "postcss-cssnext": {},
 
         // rem layout
-        // "postcss-pxtorem": {
-        //     rootValue: 16, // 根元素大小
-        //     unitPrecision: 5, //转换成rem后保留的小数点位数
-        //     propList: ['font', 'font-size', 'line-height', 'letter-spacing'],
-        //     selectorBlackList: [],
-        //     replace: true,
-        //     mediaQuery: false,
-        //     minPixelValue: 0
-        // },
-        /* vw layout
-        "postcss-px-to-viewport": {
-            viewportWidth: 750,
-            viewportHeight: 1334,
-            unitPrecision: 3,
-            viewportUnit: 'vw',
-            selectorBlackList: ['.ignore', '.hairlines'],
-            minPixelValue: 1,
+        "postcss-pxtorem": {
+            rootValue: 16, // 根元素大小
+            unitPrecision: 5, //转换成rem后保留的小数点位数
+            propList: ['font', 'font-size', 'line-height', 'letter-spacing'],
+            selectorBlackList: [],
+            replace: true,
             mediaQuery: false,
-            exclude: /(\/|\\)(node_modules)(\/|\\)/
+            minPixelValue: 0
         },
-        "postcss-viewport-units": {}, */
-        "cssnano": {
-            preset: "default",
-            // preset: "advanced",
-            autoprefixer: false,
-            "postcss-zindex": false
-        }
+        /* vw layout*/
+        // "postcss-px-to-viewport": {
+        //     viewportWidth: 750,
+        //     viewportHeight: 1334,
+        //     unitPrecision: 3,
+        //     viewportUnit: 'vw',
+        //     selectorBlackList: ['.ignore', '.hairlines'],
+        //     minPixelValue: 1,
+        //     mediaQuery: false,
+        //     exclude: /(\/|\\)(node_modules)(\/|\\)/
+        // },
+        // "postcss-viewport-units": {}, 
+        // "cssnano": {
+        //     preset: "default",
+        //     // preset: "advanced",
+        //     autoprefixer: false,
+        //     "postcss-zindex": false
+        // }
     }
 }

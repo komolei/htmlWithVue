@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>专属推荐</title>
+    <link rel="stylesheet" type="text/css" href="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/css/swiper.css" />
+    <script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/thirdUpdate/public/js/viewport-units-buggyfill.hacks.min.js"></script>
+    <script>
+        if (!window.Promise) {
+            document.writeln('<script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/js/es6-promise.min.js"' + '>' + '<' + '/' + 'script>');
+        }
+    </script>
+    <script>
+
+        viewportUnitsBuggyfillHacks.initialize()
+        </script>
+<style>
+*{margin:0;padding:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{height:100%}[v-cloak]{display:none!important}.addBodyPadding{padding-top:.267vw;content:"viewport-units-buggyfill; padding-top: 0.267vw"}li{list-style:none}button{border:none}button,input{outline:none}img{vertical-align:middle;position:relative;content:normal!important}body,img{width:100%}body{min-height:100vh;background:#000;content:"viewport-units-buggyfill; min-height: 100vh"}header{max-width:98vw;line-height:11vw;font-size:3.5vw;text-indent:1em;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis;white-space:nowrap;content:"viewport-units-buggyfill; max-width: 98vw; line-height: 11vw; font-size: 3.5vw"}.domLoading{width:20vw;height:20vw;margin:0 auto;line-height:100vh;content:"viewport-units-buggyfill; width: 20vw; height: 20vw; line-height: 100vh"}#products .swiper-slide img{width:100%}#products .swiper-pagination-bullet{background:#fff}#products .swiper-pagination-bullet-active{background:#000}#products .swiper-pagination-bullets{text-align:right;padding-right:7vw;bottom:3.47vw;content:"viewport-units-buggyfill; padding-right: 7vw; bottom: 3.47vw"}.footer{padding:4vw 0;background:#001947;color:#fff;line-height:1.5em;position:fixed;bottom:0;left:0;width:100%;z-index:999;content:"viewport-units-buggyfill; padding: 4vw 0; font-size: 4vw"}.footer,.load_more{text-align:center;font-size:4vw}.load_more{line-height:10.53vw;content:"viewport-units-buggyfill; line-height: 10.53vw; font-size: 4vw"}.load_more img{width:3.6vw;margin-left:2.8vw;content:"viewport-units-buggyfill; width: 3.6vw; margin-left: 2.8vw"}.photo_ct{width:100vw;background:#ccc;content:"viewport-units-buggyfill; width: 100vw"}.photo_ct img{width:100%}.content_ct{padding:0 6.933vw;background:#111;content:"viewport-units-buggyfill; padding: 0 6.933vw"}.content_ct,.content_ct .content_box{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.content_ct .content_box{padding:0 5.2vw 8vw;background:#fff;content:"viewport-units-buggyfill; padding: 0 5.2vw 8vw 5.2vw"}.content_ct .content_box .adviser_ct{height:14.533vw;border-bottom:1px solid #000;margin-bottom:2.8vw;content:"viewport-units-buggyfill; height: 14.533vw; margin-bottom: 2.8vw"}.content_ct .content_box .adviser_ct,.content_ct .content_box .adviser_ct .adviser_box .is-adviser_ct__top{display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:-moz-box;display:flex;-webkit-box-align:center;-ms-flex-align:center;-webkit-align-items:center;-moz-box-align:center;align-items:center}.content_ct .content_box .adviser_ct .adviser_box .is-adviser_ct__top{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-flow:row nowrap;-webkit-flex-flow:row nowrap;-moz-box-orient:horizontal;-moz-box-direction:normal;flex-flow:row nowrap;-webkit-box-pack:start;-ms-flex-pack:start;-webkit-justify-content:flex-start;-moz-box-pack:start;justify-content:flex-start}.content_ct .content_box .adviser_ct .adviser_box .is-adviser_ct__top .adviser_ct__top-avt{width:10.267vw;height:10.267vw;background:#ccc;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;content:"viewport-units-buggyfill; width: 10.267vw; height: 10.267vw"}.content_ct .content_box .adviser_ct .adviser_box .is-adviser_ct__top .adviser_ct__top-avt img{-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%}.content_ct .content_box .adviser_ct .adviser_box .is-adviser_ct__top .adviser_ct__top-content{padding:0 0 0 3.333vw;height:10.267vw;display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-flow:column nowrap;-moz-box-orient:vertical;-moz-box-direction:normal;-ms-flex-flow:column nowrap;flex-flow:column nowrap;-webkit-box-pack:center;-webkit-justify-content:center;-moz-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:start;-webkit-align-items:flex-start;-moz-box-align:start;-ms-flex-align:start;align-items:flex-start;content:"viewport-units-buggyfill; padding: 0 0 0 3.333vw; height: 10.267vw"}.content_ct .content_box .adviser_ct .adviser_box .is-adviser_ct__top .adviser_ct__top-content p{font-size:2.667vw;font-family:HYQiHei-DES;font-weight:400;color:#070707;line-height:4vw;content:"viewport-units-buggyfill; font-size: 2.667vw; line-height: 4vw"}.content_ct .content_box .adviser_ct .adviser_box .is-adviser_ct__top .adviser_ct__top-content div{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-flow:row nowrap;-moz-box-orient:horizontal;-moz-box-direction:normal;-ms-flex-flow:row nowrap;flex-flow:row nowrap;-webkit-box-pack:center;-webkit-justify-content:center;-moz-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center;margin-top:.667vw;content:"viewport-units-buggyfill; margin-top: 0.667vw"}.content_ct .content_box .adviser_ct .adviser_box .is-adviser_ct__top .adviser_ct__top-content div span{font-size:3.2vw;font-family:HYQiHei-FES;font-weight:400;color:#593620;margin-right:1.2vw;content:"viewport-units-buggyfill; font-size: 3.2vw; margin-right: 1.2vw"}.content_ct .content_box .adviser_ct .adviser_box .is-adviser_ct__top .adviser_ct__top-content div img{margin-right:.933vw;width:2.4vw;height:2.133vw;content:"viewport-units-buggyfill; margin-right: 0.933vw; width: 2.4vw; height: 2.133vw"}.content_ct .content_box .recommend_box>div{display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:-moz-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-flow:row wrap;-moz-box-orient:horizontal;-moz-box-direction:normal;-ms-flex-flow:row wrap;flex-flow:row wrap;-webkit-box-pack:start;-webkit-justify-content:flex-start;-moz-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;-webkit-align-content:center;-ms-flex-line-pack:center;align-content:center;margin-bottom:3.333vw;content:"viewport-units-buggyfill; margin-bottom: 3.333vw"}.content_ct .content_box .recommend_box>div .recommend_box-tag{min-height:4vw;max-height:6vw;padding:.933vw 1.467vw;font-size:2.667vw;font-family:HYQiHei-DES;font-weight:400;color:#fff;line-height:4vw;background:#432410;-webkit-border-radius:.667vw;-moz-border-radius:.667vw;border-radius:.667vw;content:"viewport-units-buggyfill; min-height: 4vw; max-height: 6vw; padding: 0.933vw 1.467vw; font-size: 2.667vw; line-height: 4vw; -webkit-border-radius: 0.667vw; -moz-border-radius: 0.667vw; border-radius: 0.667vw"}.content_ct .content_box .recommend_box>div .recommend_box-content{-webkit-box-flex:1;-webkit-flex:1;-moz-box-flex:1;-ms-flex:1;flex:1;-ms-flex-item-align:center;-webkit-align-self:center;align-self:center;padding-left:2.8vw;text-align:justify;font-size:2.667vw;font-family:HYQiHei-DES;font-weight:400;color:#070707;line-height:4vw;content:"viewport-units-buggyfill; padding-left: 2.8vw; font-size: 2.667vw; line-height: 4vw"}.content_ct .content_box .logo{position:relative;padding:3.333vw 7.6vw 4.933vw;border:1px solid #432410;-webkit-border-radius:1.333vw;-moz-border-radius:1.333vw;border-radius:1.333vw;text-align:justify;font-size:2.667vw;font-family:HYQiHei-FES;font-weight:400;color:#432410;line-height:4vw;content:"viewport-units-buggyfill; padding: 3.333vw 7.6vw 4.933vw 7.6vw; -webkit-border-radius: 1.333vw; -moz-border-radius: 1.333vw; border-radius: 1.333vw; font-size: 2.667vw; line-height: 4vw"}.content_ct .content_box .logo img{position:absolute;z-index:4;bottom:-2vw;left:50%;-webkit-transform:translate(-50%,1vw);-moz-transform:translate(-50%,1vw);-ms-transform:translate(-50%,1vw);-o-transform:translate(-50%,1vw);transform:translate(-50%,1vw);width:16.133vw;height:5.333vw;content:"viewport-units-buggyfill; bottom: -2vw; -webkit-transform: translate(-50%, 1vw); -moz-transform: translate(-50%, 1vw); -ms-transform: translate(-50%, 1vw); -o-transform: translate(-50%, 1vw); transform: translate(-50%, 1vw); width: 16.133vw; height: 5.333vw"}.content_ct .fit_ct{margin-top:1.6vw;background:#000;content:"viewport-units-buggyfill; margin-top: 1.6vw"}.content_ct .fit_ct .list{display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:-moz-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;-moz-box-orient:horizontal;-moz-box-direction:normal;flex-flow:row wrap;-webkit-box-pack:justify;-ms-flex-pack:justify;-webkit-justify-content:space-between;-moz-box-pack:justify;justify-content:space-between}.content_ct .fit_ct .list li{width:42.533vw;color:#222;position:relative;margin-bottom:1.333vw;content:"viewport-units-buggyfill; width: 42.533vw; margin-bottom: 1.333vw"}.content_ct .fit_ct .list li .btn--center{position:absolute;z-index:5;top:50%;-webkit-transform:translateY(-50%);-moz-transform:translateY(-50%);-ms-transform:translateY(-50%);-o-transform:translateY(-50%);transform:translateY(-50%);left:-2.667vw;width:4vw;height:4vw;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;content:"viewport-units-buggyfill; left: -2.667vw; width: 4vw; height: 4vw"}.content_ct .fit_ct .list img{width:100%}.content_ct .fit_ct .list .product_intro{display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:-moz-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-flow:row nowrap;-webkit-flex-flow:row nowrap;-moz-box-orient:horizontal;-moz-box-direction:normal;flex-flow:row nowrap;-webkit-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;-moz-box-pack:center;justify-content:center;-ms-flex-line-pack:center;-webkit-align-content:center;align-content:center;height:7.733vw;background:#5a3620;content:"viewport-units-buggyfill; height: 7.733vw"}.content_ct .fit_ct .list .product_intro .product_name{-webkit-align-self:center;-ms-flex-item-align:center;align-self:center;line-height:7.733vw;font-size:2.267vw;font-family:HYQiHei-DES;font-weight:400;color:#fff;max-width:26.667vw;overflow:hidden;white-space:nowrap;-o-text-overflow:ellipsis;text-overflow:ellipsis;content:"viewport-units-buggyfill; line-height: 7.733vw; font-size: 2.267vw; max-width: 26.667vw"}.content_ct .fit_ct .list .product_intro .line{-ms-flex-item-align:center;-webkit-align-self:center;align-self:center;line-height:7.733vw;margin:0 1.067vw;width:1px;height:2vw;background:#fff;content:"viewport-units-buggyfill; line-height: 7.733vw; margin: 0 1.067vw; height: 2vw"}.content_ct .fit_ct .list .product_intro .price{line-height:7.733vw;-ms-flex-item-align:center;-webkit-align-self:center;align-self:center;font-size:2.267vw;font-family:HYQiHei-FES;font-weight:400;color:#fff;content:"viewport-units-buggyfill; line-height: 7.733vw; font-size: 2.267vw"}.content_ct .fit_ct .description{text-align:justify;font-size:2.667vw;font-family:HYQiHei-DES;font-weight:400;color:#fff;line-height:4vw;padding:4.933vw 4vw 3.867vw 3.867vw;background:#212020;-webkit-border-radius:.667vw;-moz-border-radius:.667vw;border-radius:.667vw;content:"viewport-units-buggyfill; font-size: 2.667vw; line-height: 4vw; padding: 4.933vw 4vw 3.867vw 3.867vw; -webkit-border-radius: 0.667vw; -moz-border-radius: 0.667vw; border-radius: 0.667vw"}@-webkit-keyframes slideOutUp{0%{-webkit-transform:translateZ(0);transform:translateZ(0)}to{visibility:hidden;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}}@-moz-keyframes slideOutUp{0%{-webkit-transform:translateZ(0);-moz-transform:translateZ(0);transform:translateZ(0)}to{visibility:hidden;-webkit-transform:translate3d(0,-100%,0);-moz-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}}@-o-keyframes slideOutUp{0%{-webkit-transform:translateZ(0);transform:translateZ(0)}to{visibility:hidden;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}}@keyframes slideOutUp{0%{-webkit-transform:translateZ(0);-moz-transform:translateZ(0);transform:translateZ(0)}to{visibility:hidden;-webkit-transform:translate3d(0,-100%,0);-moz-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}}.mask{z-index:8}.mask,.mask_i{position:fixed;width:100%;height:100%;left:0;top:0;-webkit-transform:translateZ(0)}.mask_i{z-index:20;background:rgba(34,34,34,.5)}.fabric_ct{width:100vw;height:94vw;position:fixed;-webkit-transform:translateZ(0);bottom:0;left:0;background:#fff;z-index:30;content:"viewport-units-buggyfill; width: 100vw; height: 94vw"}.fabric_ct_h{position:relative;display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:-moz-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-flow:row nowrap;-webkit-flex-flow:row nowrap;-moz-box-orient:horizontal;-moz-box-direction:normal;flex-flow:row nowrap;-ms-flex-pack:distribute;-webkit-justify-content:space-around;justify-content:space-around;line-height:14vw;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0 3vw;content:"viewport-units-buggyfill; line-height: 14vw; padding: 0 3vw"}.fabric_ct_h span{font-size:5vw;font-family:PingFangSC-Medium;font-weight:500;color:#222;-webkit-box-flex:2;-ms-flex:2;-webkit-flex:2;-moz-box-flex:2;flex:2;text-align:center;content:"viewport-units-buggyfill; font-size: 5vw"}.fabric_ct_h .closed_btn{width:5vw;height:5vw;content:"viewport-units-buggyfill; width: 5vw; height: 5vw"}.fabric_ct_m{margin-top:1vw;background:#f5f6f6;height:80vw;overflow-y:scroll;content:"viewport-units-buggyfill; margin-top: 1vw; height: 80vw"}.fabric_ct_m label{display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:-moz-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-flow:row nowrap;-webkit-flex-flow:row nowrap;-moz-box-orient:horizontal;-moz-box-direction:normal;flex-flow:row nowrap;-ms-flex-pack:distribute;-webkit-justify-content:space-around;justify-content:space-around;margin-top:3vw;background:#fff;padding:4vw 0;content:"viewport-units-buggyfill; margin-top: 3vw; padding: 4vw 0"}.fabric_ct_m li:first-child label{margin-top:0}.fabric_ct_m li:last-child{padding-bottom:15vw;content:"viewport-units-buggyfill; padding-bottom: 15vw"}.fabric_ct_m .li_l{width:45vw;height:27vw;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0 4vw;position:relative;overflow:hidden;content:"viewport-units-buggyfill; width: 45vw; height: 27vw; padding: 0 4vw"}.fabric_ct_m .li_l img{width:100%;height:100%}.fabric_ct_m .li_l .notImg{display:none}.fabric_ct_m .li_l .withImg{display:block;width:12vw;height:13vw;position:absolute;z-index:11;top:0;left:0;-webkit-transform:translateZ(13.333vw);-moz-transform:translateZ(13.333vw);transform:translateZ(13.333vw);content:"viewport-units-buggyfill; width: 12vw; height: 13vw; -webkit-transform: translateZ(13.333vw); -moz-transform: translateZ(13.333vw); transform: translateZ(13.333vw)"}.fabric_ct_m .li_r{display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:-moz-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-flow:column nowrap;-webkit-flex-flow:column nowrap;-moz-box-orient:vertical;-moz-box-direction:normal;flex-flow:column nowrap;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-box-flex:1;-ms-flex:1;-webkit-flex:1;-moz-box-flex:1;flex:1;padding-top:1vw;content:"viewport-units-buggyfill; padding-top: 1vw"}.fabric_ct_m .li_r span{font-size:3vw;font-family:PingFangSC-Regular;font-weight:400;color:#222;line-height:6vw;content:"viewport-units-buggyfill; font-size: 3vw; line-height: 6vw"}.fabric_ct_m .li_r span:first-child{line-height:4vw;content:"viewport-units-buggyfill; line-height: 4vw"}.noShowOfAlert{display:none}.alert-content{position:fixed;-webkit-transform:translate3d(-50%,-50%,0);-moz-transform:translate3d(-50%,-50%,0);transform:translate3d(-50%,-50%,0);left:50%;top:50%;z-index:1001;font-size:1.867vw;padding:1.6vw 2vw;color:#fff;text-align:center;background-color:rgba(0,0,0,.65);-webkit-border-radius:.667vw;-moz-border-radius:.667vw;border-radius:.667vw;content:"viewport-units-buggyfill; font-size: 1.867vw; padding: 1.6vw 2vw; -webkit-border-radius: 0.667vw; -moz-border-radius: 0.667vw; border-radius: 0.667vw"}
+</style>
+<style>
+    #products .swiper-pagination-bullets{
+        text-align: center!important;
+    }
+</style>
+</head>
+
+<body>
+    <div class="domLoading">
+        <img src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/loading_svg/bars.svg">
+    </div>
+    <div class="errorShow"></div>
+    <div id="app" v-cloak>
+        <div class="photo_ct">
+            <div class="swiper-container" id="products">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="(node,index_img) in matchInfo.img_list" :key="index_img">
+                        <img :src="node">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+        <div class="content_ct">
+            <div class="content_box">
+                <div class="adviser_ct">
+                    <div class="adviser_box">
+                        <div class="is-adviser_ct__top" v-if="isMan">
+                            <div class="adviser_ct__top-avt">
+                                <img :src="matchInfo.consultantInfo.img_url">
+                            </div>
+                            <div class="adviser_ct__top-content">
+                                <p>
+                                    <span>着装顾问:</span>
+                                    <span>
+                                        {{matchInfo.consultantInfo.name}}
+                                    </span>
+                                </p>
+                                <div>
+                                    <span>为您推荐搭配</span>
+                                    <img src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/newRecommend/goods.png"
+                                        v-for="(item,index) in Array.apply(null,{ length: matchInfo.consultantInfo.star }) ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="is-adviser_ct__top" v-else="isMan">
+                            <div class="adviser_ct__top-avt">
+                                <img :src="matchInfo.consultantInfo.img_url">
+                            </div>
+                            <div class="adviser_ct__top-content">
+                                <p>
+                                    <span></span>
+                                    <span>
+                                        衣邦人
+                                    </span>
+                                </p>
+                                <div>
+                                    <span>为您推荐搭配</span>
+                                    <img src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/newRecommend/goods.png"
+                                        v-for="(item,index) in Array.apply(null,{ length: matchInfo.consultantInfo.star }) ">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="recommend_box">
+                    <div>
+                        <div class="recommend_box-tag">
+                            推荐理由
+                        </div>
+                        <div class="recommend_box-content">
+                            {{matchInfo.recommend_reason}}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="recommend_box-tag">
+                            搭配规则
+                        </div>
+                        <div class="recommend_box-content">
+                            {{matchInfo.rule}}
+
+                        </div>
+                    </div>
+                    <div>
+                        <div class="recommend_box-tag">
+                            推荐搭配
+                        </div>
+                        <div class="recommend_box-content">
+                            {{matchInfo.recommend_item_desc}}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="logo">
+                    {{matchInfo.content}}
+                    <img src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/newRecommend/logo.png">
+                </div>
+
+            </div>
+            <div class="fit_ct">
+                <div class="suit_ct" v-for="(item,index) in totalInfo" :key="index" :id="'ct_'+index">
+                    <ul class="list">
+                        <li @click.prevent="showMask(item,index,item2,index2)" v-for="(item2,index2) in item.item_list"
+                            :key="index2">
+                            <img src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/newRecommend/ss.png" class="btn--center"
+                                v-if="index2%2==1">
+                            <img :src="item2.img_url" alt="">
+                            <div class="product_intro">
+                                <div class="product_name">
+                                    {{item2.title}}
+                                </div>
+                                <div class="line"></div>
+                                <div class="price">
+                                    ¥{{item2.price}}
+                                </div>
+                            </div>
+
+                        </li>
+
+                    </ul>
+                    <div class="description">
+                        {{item.good_recommend}}
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+        <div style="padding-top:10vw;"></div>
+
+        <div class="forbid-scroll-wrap" v-if='isShow'>
+            <i class="mask_i"></i>
+            <div class="fabric_ct">
+                <div class="fabric_ct_h">
+                    <div class="closed_btn">
+                    </div>
+                    <span>
+                        选择面料
+                    </span>
+                    <div class="closed_btn" @click="closeMask">
+                        <img src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/imageReport/%E5%85%B3%20%20%E9%97%AD%20(7)-01%402x.png"
+                            alt="">
+                    </div>
+                </div>
+                <ul class="fabric_ct_m can-scroll-wrap">
+                    <li v-for="(item,index) in fabricInfo.fabric_list" @click.prevent="fabricSelected(fabricInfo,item,index)">
+                        <label :for="index">
+                            <input type="radio" :value="index" :id="index" :checked="item.checked" style="visibility:hidden">
+                            <div class="li_l">
+                                <img :src="item.img_url">
+                                <img :src="checkedImg" :class="item.checked?'withImg':'notImg'">
+                            </div>
+                            <div class="li_r">
+                                <span>
+                                    编号：{{item.fabric_code}}
+                                </span>
+                                <span>
+                                    颜色：{{item.color}}
+                                </span>
+                                <span>
+                                    成分：{{item.composition}}
+                                </span>
+                                <span>
+                                    价格：{{item.shop_price}}
+                                </span>
+                            </div>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="alert-content" :class="isAlert?'':'noShowOfAlert'">{{ErrorMsg}}</div>
+
+    </div>
+    <script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/js/swiper.js"></script>
+    <script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/js/vue.min.js"></script>
+    <script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/js/zepto_1.2.js"></script>
+    <script src="https://ossstatic.ybren.com/Public/js/noncestamp.js?v=1"></script>
+    <script>
+        function showError(message) {
+            var div = document.createElement('div');
+            div.textContent = JSON.stringify(message);
+            document.querySelector('.errorShow').appendChild(div)
+        }
+        window.onerror = function (message, source, lineno, colno, error) {
+        };
+    </script>
+
+    <script>
+        function showHtmlcallNative(type, id, initial) {
+            var from = "";
+            var mode = mode;
+            var plan = "";
+            if (from == '') {
+                from = "";
+            }
+            if (from == '') {
+                from = "";
+            }
+
+            if (type == 7) {
+                var url = "/home/itemdetail/" + id;
+                if (from) {
+                    url = url + "/from/" + from;
+                }
+                if ('#share' == window.location.hash) {
+                    location.href = "//app.ybren.com/index.php?c=Share&a=item&ShopItemId=" + id;
+                    return;
+                }
+                if (mode != 'app') {
+                    location.href = url;
+                    return;
+                }
+            } else if (type == 6) {
+                var url = "/index.php/Home/Yuyue/newyuyue";
+                if (from) {
+                    url = url + "?source=" + from;
+                    if (plan) {
+                        url = url + "&plan=" + plan;
+                    }
+                }
+                if (mode != 'app') {
+                    //location.href = url;
+                    // return;
+                }
+            }
+            var browser = {
+                versions: function () {
+                    var u = navigator.userAgent,
+                        app = navigator.appVersion;
+                    return { //移动终端浏览器版本信息 
+                        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端 
+                        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器 
+                        iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器 
+                        iPad: u.indexOf('iPad') > -1, //是否iPad 
+                    };
+                }(),
+            }
+            var versions
+            if (browser.versions.iPhone || browser.versions.iPad || browser.versions.ios) {
+                if (versions == '') {
+                    var url = "YBRenstore.type:" + type + ";param:" + id + ";initial:" + initial;
+                    document.location = url;
+                }
+                var body = "type:" + type + ";param:" + id + ";initial:" + initial;
+                var message = {
+                    'body': body
+                };
+                window.webkit.messageHandlers.ybrenstore.postMessage(message);
+            }
+            if (browser.versions.android) {
+                var str = window.jsObj.HtmlcallNative(type, id);
+            }
+        }
+
+        var smsUrl;
+        var reqUrl;
+        var shareUrl;
+        (function () {
+            var url = window.document.location.href.toString();
+            if (/localhost/g.test(url) || /file/g.test(url) || /test/g.test(url)) {
+                reqUrl = "https://eapitest.ybren.com";
+                smsUrl = "https://eapitest.ybren.com";
+                shareUrl = 'https://htest.ybren.com/activity/questionnair.html'
+
+            } else {
+                reqUrl = "https://eapi.ybren.com";
+                smsUrl = "https://eapi.ybren.com";
+                shareUrl = 'https://h.ybren.com/activity/questionnair.html'
+
+            }
+        })();
+
+        function isWxCt() {
+            var ua1 = navigator.userAgent.toLowerCase();
+            return ua1.indexOf("micromessenger") != -1 ? true : false;
+        }
+
+        function wxShare() {
+            var signPackage = null;
+            var wxshare_py = null;
+            // is wx
+
+            var url = window.location.href.toString()
+            apiPost(
+                reqUrl + "/Web/ApiMatch/getWxConfig", {
+                    url: shareUrl
+                },
+                function (data) {
+                    if (data["Status"] == 1) {
+                        signPackage = data.Data.signPackage;
+                        wxshare_py = data.Data.wxshare_py;
+                    } else {
+
+                    }
+                },
+                false
+            );
+            wx.config({
+                debug: false,
+                appId: signPackage.appId,
+                timestamp: signPackage.timestamp,
+                nonceStr: signPackage.nonceStr,
+                signature: signPackage.signature,
+
+                jsApiList: [
+                    // 所有要调用的 API 都要加到这个列表中
+                    "checkJsApi",
+                    "openLocation",
+                    "getLocation",
+                    "onMenuShareTimeline",
+                    "onMenuShareAppMessage"
+                ]
+            });
+
+            wx.ready(function () {
+                wx.onMenuShareAppMessage({
+                    title: wxshare_py.title,
+                    desc: wxshare_py.desc,
+                    link: wxshare_py.link,
+                    imgUrl: wxshare_py.imgUrl,
+
+                    trigger: function (res) {
+                    },
+                    success: function (res) {
+                    },
+                    cancel: function (res) {
+                    },
+                    fail: function (res) {
+                    }
+                });
+
+                wx.onMenuShareTimeline({
+                    title: wxshare_py.title,
+                    desc: wxshare_py.desc,
+                    link: wxshare_py.link,
+                    imgUrl: wxshare_py.imgUrl,
+
+                    trigger: function (res) {
+                    },
+                    success: function (res) {
+                    },
+                    cancel: function (res) {
+                    },
+                    fail: function (res) {
+                    }
+                });
+            });
+        }
+
+        new Vue({
+            el: '#app',
+            data: {
+                node1: null,
+                node2: null,
+                canScrollWrap: null,
+                suit_ct_index: 0,
+                index: 0,
+                index2: 0,
+                name: 'yunlai',
+                isLock: false,
+                isLock1: false,
+                isDomLoading: true,
+                isShow: false,
+                isSelected: true,
+                radioValue: 0,
+                checkedImg: 'https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/newRecommend/checkedNow.png',
+                ErrorMsg: 'dd',
+                isAlert: false,
+                LoginCellphone: '',
+                recommendIndex: 1,
+                RecommendId: null,
+                totalInfo: [],
+                user_name: '',
+                isMan: true,
+                matchInfo: {
+                    user_name: '',
+                    content: '',
+                    img_url: '',
+                    item_list: [{
+                        id: '',
+                        img_url: '',
+                        price: '',
+                        title: ''
+                    }],
+                    fabric_list: [{
+                        color: '',
+                        composition: '',
+                        fabric_code: '',
+                        shop_price: '',
+                    }],
+                    consultantInfo: {
+                        img_url: '',
+                        name: '',
+                        star: 1,
+                    }
+                },
+                fabricInfo: {
+                    fabric_list: [{
+                        shop_price: '',
+                    }]
+                },
+                otherMatchIdArr: [],
+                isSelectedFabrice: false,
+            },
+            watch: {
+
+            },
+            computed: {},
+            methods: {
+
+                ForbidScroll: function (option) {
+                    option = option || {};
+                    var forbidScrollWrap = option.forbidScrollWrap || '.forbid-scroll-wrap',
+                        canScrollWrap = option.canScrollWrap || '.can-scroll-wrap';
+                    this.canScrollWrap = canScrollWrap;
+                    this.node1 = document.querySelector(canScrollWrap);
+                    this.node2 = document.querySelector(forbidScrollWrap);
+                },
+
+                initForbid: function () {
+                    if (!this.node1 || !this.node2) return;
+                    var startY = 0,
+                        canScrollWrap = this.canScrollWrap;
+                    node1.scrollTop = 0;
+                    var offsetHeight = this.node1.offsetHeight,
+                        scrollHeight = this.node1.scrollHeight;
+
+                    this.node2.addEventListener('touchmove', function (e) {
+                        var target = e.target;
+                        if ($(target).parents(canScrollWrap).length === 0 && document.querySelector(
+                                target) != node1) {
+                            e.preventDefault();
+                        }
+                    }, false);
+                    this.node1.addEventListener('touchmove', function (e) {
+                        var changedTouches = e.changedTouches,
+                            canMove = false;
+                        var scrollTop = this.scrollTop;
+                        if (changedTouches.length > 0) {
+                            var touch = changedTouches[0] || {};
+                            var moveY = touch.clientY;
+                            if (moveY > startY && scrollTop <= 0) {
+                                canMove = false;
+                            } else if (moveY < startY && scrollTop + offsetHeight >= scrollHeight) {
+                                canMove = false;
+                            } else {
+                                canMove = true;
+                            }
+                            if (!canMove) {
+                                e.preventDefault();
+                            }
+                        }
+
+                    }, false);
+                    this.node1.addEventListener('touchstart', function (e) {
+                        var targetTouches = e.targetTouches || [];
+                        if (targetTouches.length > 0) {
+                            var touch = targetTouches[0] || {};
+                            startY = touch.clientY;
+                        }
+                    }, false)
+
+                },
+
+                relieveForbid: function () {
+                    if (!this.node1 || !this.node2) return;
+                    this.node1.scrollTop = 0;
+                    this.node1.addEventListener('touchstart', null, false);
+                    this.node1.addEventListener('touchmove', null, false);
+                    this.node2.addEventListener('touchmove', null, false);
+                },
+                triggerBody: function () {
+                    if (document.body.style.position == '') {
+                        var scrollTop =
+                            document.body.scrollTop || document.documentElement.scrollTop;
+                        document.body.style.cssText += "overflow:hidden;position:fixed;top:-" + scrollTop +
+                            "px;";
+                        document.querySelector('html').style.cssText += "overflow:hidden;";
+
+                    } else {
+                        var body = document.body;
+                        body.style.position = "";
+                        var top = body.style.top;
+                        document.body.scrollTop = document.documentElement.scrollTop = -parseInt(
+                            top
+                        );
+                        body.style.top = "";
+                        body.style.overflow = "";
+                        document.querySelector('html').style.cssText = "";
+                    }
+                },
+
+
+                throttle: function (fn, delay, mustRunDelay) {
+                    mustRunDelay = mustRunDelay ? mustRunDelay : 0;
+                    var timer = null;
+                    var tStart;
+                    return function () {
+                        var context = this;
+                        var args = arguments;
+                        var tCurr = +new Date();
+                        clearTimeout(timer);
+                        if (!tStart) {
+                            tStart = tCurr;
+                        }
+                        if (mustRunDelay !== 0 && tCurr - tStart >= mustRunDelay) {
+                            fn.apply(context, args);
+                            tStart = tCurr;
+                        } else {
+                            timer = setTimeout(function () {
+                                fn.apply(context, args);
+                            }, delay);
+                        }
+                    };
+                },
+
+                alertErrorMsg: function (msg, timer) {
+                    timer = timer ? timer : 1000
+                    this.ErrorMsg = msg;
+                    this.isAlert = true;
+                    var that = this;
+                    setTimeout(function () {
+                        that.isAlert = false
+                    }, timer)
+                },
+                showMask: function (item, index, item2, index2) {
+                    // this.initForbid()
+                    // this.windowOffScroll();
+                    this.isSelectedFabrice = true;
+                    this.isShow = true;
+                    this.triggerBody();
+                    this.fabricInfo = item2;
+                    this.index = index;
+                    this.index2 = index2;
+                    this.RecommendId = this.totalInfo[index].RecommendId;
+                    if (item2.fabric_list[0].checked) {
+                        this.fabricSelected(item2, item2.fabric_list[0], 0)
+                    }
+
+                },
+                fabricSelected: function (fabricInfo, item, index) {
+                    this.fabricInfo.fabric_list = fabricInfo.fabric_list.map(function (item, nodeIndex) {
+                        item.checked = nodeIndex == index ? true : false;
+                        return item;
+                    })
+                    this.totalInfo[this.index].item_list[this.index2].price = item.shop_price;
+
+                    this.getFabricContent(fabricInfo, item, index);
+                },
+                closeMask: function () {
+                    this.isShow = false;
+                    this.triggerBody();
+                    // this.windowOnScroll();
+                    // this.relieveForbid()
+                },
+                // 获取当前滚动条的位置 
+                getScrollTop: function () {
+                    var scrollTop = 0;
+                    if (document.documentElement && document.documentElement.scrollTop) {
+                        scrollTop = document.documentElement.scrollTop;
+                    } else if (document.body) {
+                        scrollTop = document.body.scrollTop;
+                    }
+                    return scrollTop;
+                },
+
+                // 获取当前可视范围的高度 
+                getClientHeight: function () {
+                    var clientHeight = 0;
+                    if (document.body.clientHeight && document.documentElement.clientHeight) {
+                        clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+                    } else {
+                        clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+                    }
+                    return clientHeight;
+                },
+
+                // 获取文档完整的高度 
+                getScrollHeight: function () {
+                    return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+                },
+
+                showLoadingMore: function () {
+
+                    if (this.isShow) return;
+                    if (this.getScrollTop() + this.getClientHeight() + 1 >= this.getScrollHeight()) {
+                        this.throttle(this.getMatchInfoIIf)()
+                    }
+                },
+                toYuYue: function () {
+
+                    if (window.location.href.toString().indexOf('mode') != -1) {
+                        showHtmlcallNative(6, '', 6)
+                    } else {
+                        var fabricList = [];
+                        if (this.isSelectedFabrice) {
+                            fabricList = this.totalInfo[0].item_list.map(function (item) {
+                                return item.fabric_list.filter(function (node) {
+                                    return node.checked
+                                })
+                            }).map(function (item) {
+                                return item.map(function (node) {
+                                    return node.fabric_code
+                                })
+                            }).reduce(function (a, b) {
+                                return a.concat(b)
+                            });
+                        } else {
+                            fabricList = this.totalInfo[0].item_list.map(function (item) {
+                                return item.default_fabric_code
+                            })
+                        }
+                        var newfabricList = fabricList.join(',')
+                        window.location.href =
+                            'https://m.ybren.com/Home/Visit/newyuyue?source=WAP&plan=GXTJ&note=' +
+                            newfabricList;
+                    }
+
+
+
+                },
+                getFabricContent: function (fabricInfo, item, index) {
+                    var that = this;
+                    if (!item.fabric_code) return;
+
+                    apiPost(reqUrl + '/Web/ApiMatch/getFabricContent', {
+                            LoginCellphone: that.LoginCellphone,
+                            RecommendId: that.RecommendId,
+                            ItemId: fabricInfo.id,
+                            FabricCode: item.fabric_code,
+                        },
+                        function (data) {
+                            if (data['Status'] == 1) {
+                                that.totalInfo[that.index].good_recommend = data['Data'].good_recommend;
+                            } else {
+                                that.alertErrorMsg(data['ErrorMsg'])
+                            }
+                        },
+                        false
+                    )
+                },
+
+                //
+                scrollToTop() {
+                    this.suit_ct_index += 1;
+                    var el = '#ct_' + this.suit_ct_index;
+                    var scrollEl = document.body.querySelector(el).offsetTop;
+                    window.scrollTo(0, scrollEl)
+                },
+
+                getMatchInfoIIf: function () {
+                    var that = this;
+                    if (that.otherMatchIdArr.length == 0 || this.otherMatchIdArr[0] == '') {
+                        that.alertErrorMsg('加载完成')
+                        window.scrollTo(0, this.getScrollHeight() - this.getClientHeight() - 5)
+                    } else {
+                        var IIFE = function () {
+                            if (that.isLock1) return;
+                            that.isLock1 = true;
+                            return new Promise(function (res, rej) {
+                                apiPost(reqUrl + '/Web/ApiMatch/getMatchInfo', {
+                                        LoginCellphone: that.LoginCellphone,
+                                        RecommendId: that.otherMatchIdArr.pop(),
+                                    },
+                                    function (data) {
+                                        that.isLock1 = false;
+                                        if (data['Status'] == 1) {
+                                            var matchInfo = data['Data'] ? data['Data'] :
+                                                that.matchInfo
+                                            var newtotalInfo = that.totalInfo
+                                            newtotalInfo.push(matchInfo);
+                                            newtotalInfo.map(function (item) {
+                                                return item.item_list.map(function (
+                                                    node) {
+                                                    return node.fabric_list
+                                                        .map(function (
+                                                            child,
+                                                            index) {
+                                                            return child
+                                                                .checked =
+                                                                index ==
+                                                                0 ?
+                                                                true :
+                                                                false;
+                                                        })
+                                                })
+                                            })
+                                            that.totalInfo = newtotalInfo;
+                                            res(1)
+                                        } else {
+                                            that.alertErrorMsg(data['ErrorMsg']);
+                                            rej(0)
+                                        }
+                                    },
+                                    false
+                                );
+
+                            })
+                        }
+
+
+
+                        IIFE().then(function () {
+                            Vue.nextTick(function () {
+                                that.initSwiper()
+                            })
+                            setTimeout(function () {
+                                that.scrollToTop()
+                            }, 50)
+                        }).catch(function (e) {
+                            if (e == 10) {
+                                that.alertErrorMsg('加载完成')
+                            }
+                        })
+                    }
+                },
+                getMatchInfo: function () {
+                    var that = this;
+                    var IIFE = function () {
+                        if (that.isLock) return;
+                        that.isLock = true;
+                        return new Promise(function (res, rej) {
+                            apiPost(reqUrl + '/Web/ApiMatch/getMatchInfo', {
+                                    LoginCellphone: that.LoginCellphone,
+                                    RecommendId: that.recommendIndex,
+                                },
+                                function (data) {
+                                    that.isLock = false;
+                                    if (data['Status'] == 1) {
+                                        var matchInfo = data['Data'] ? data['Data'] : that.matchInfo
+                                        that.user_name = matchInfo.user_name
+                                        that.isMan = matchInfo.consultantInfo.name.length ?
+                                            true : false;
+
+                                        var newtotalInfo = []
+                                        newtotalInfo.push(matchInfo);
+                                        newtotalInfo.map(function (item) {
+                                            return item.item_list.map(function (
+                                                node) {
+                                                return node.fabric_list.map(
+                                                    function (child,
+                                                        index) {
+                                                        return child.checked =child.selected==1?true:false
+                                                            // index == 0 ?
+                                                            // true :
+                                                            // false;
+                                                    })
+                                            })
+                                        })
+                                        // newtotalInfo.img_list.push({1:"http://appybren.oss-cn-hangzhou.aliyuncs.com/Uploads/Erp/cmsActivityConfig/2018-12-27/5c2438cb4031b.jpg"})
+                                        that.totalInfo = newtotalInfo;
+                                        that.matchInfo = matchInfo;
+                                        res(1)
+                                    } else {
+                                        that.alertErrorMsg(data['ErrorMsg']);
+                                        rej(0)
+                                    }
+                                },
+                                false
+                            );
+                        })
+                    }
+                    IIFE().then(function (res) {
+                        Vue.nextTick(function () {
+                            // that.initSwiper()
+                        })
+                    })
+                },
+                getUrlParams: function () {
+                    var url = window.location.href.toString().toLocaleLowerCase();
+                    var index = url.indexOf('logincellphone');
+                    var LoginCellphone = index == -1 ? '' : url.substr(index + 15, 11)
+                    var id = url.indexOf('matchid') == -1 ? 1 : url.substring(url.indexOf('matchid') + 8,
+                        url.indexOf(
+                            '&othermatchid'))
+                    this.LoginCellphone = LoginCellphone;
+                    this.recommendIndex = id;
+                    this.otherMatchIdArr = url.substring(url.indexOf('othermatchid') + 13, url.indexOf(
+                        '&matchend')).split(',')
+                },
+
+                initSwiper: function () {
+                    const _this = this
+                    var mySwiper = new Swiper('.swiper-container', {
+                        loop: true,
+                        // autoplay: true,
+                        on: {
+                            click: function (e) {
+                                // let url = e.target.dataset.jumpurl
+                                // jumpurl是在swiper-slide中动态绑定的data-jumpUrl属性，值是从后台获取的跳转链接
+                                // _this.bannerJump(url)
+                            },
+                        },
+                        observer: true,
+                        observeParents: true, //修改swiper的父元素时，自动初始化swiper
+                        autoplay: {
+                            disableOnInteraction: false,
+                        },
+                        // 如果需要分页器
+                        pagination: {
+                            el: '.swiper-pagination',
+                        }
+                    })
+                },
+                throttleShowLoadingMore: function () {
+                    return this.throttle(this.showLoadingMore, 300, 600)
+                },
+                windowOffScroll: function () {
+                    window.removeEventListener('scroll', this.throttleShowLoadingMore())
+                },
+                windowOnScroll: function () {
+                    window.addEventListener('scroll', this.throttleShowLoadingMore());
+                },
+                stopTouchMove: function (e) {
+                    var target = e.target.className.toLocaleLowerCase()
+                    if (target == 'mask') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                }
+            },
+            created: function () {
+                this.getUrlParams();
+            },
+
+            mounted: function () {
+                var that = this;
+                document.querySelector('.domLoading').style.display = 'none';
+                // this.windowOnScroll()
+                this.getMatchInfo();
+                if (isWxCt()) {
+                    wxShare();
+                }
+                // forbidScroll = new ForbidScroll();
+                // this.ForbidScroll()
+            },
+
+        })
+    </script>
+
+</body>
+
+</html>

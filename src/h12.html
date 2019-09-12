@@ -199,52 +199,10 @@
 
 <script>
 
-    (function () {
-        if (document.scrollingElement) {
-            return
-        }
-        var element = null
-        function scrollingElement() {
-            if (element) {
-                return element
-            } else if (document.body.scrollTop) {
-                // speed up if scrollTop > 0
-                return (element = document.body)
-            }
-            var iframe = document.createElement('iframe')
-            iframe.style.height = '1px'
-            document.documentElement.appendChild(iframe)
-            var doc = iframe.contentWindow.document
-            doc.write('<!DOCTYPE html><div style="height:9999em">x</div>')
-            doc.close()
-            var isCompliant = doc.documentElement.scrollHeight > doc.body.scrollHeight
-            iframe.parentNode.removeChild(iframe)
-            return (element = isCompliant ? document.documentElement : document.body)
-        }
-        Object.defineProperty(document, 'scrollingElement', {
-            get: scrollingElement
-        })
-    })()
-    var ModalHelper = (function (bodyCls) {
-        var scrollTop;
-        return {
-            afterOpen: function () {
-                scrollTop = document.scrollingElement.scrollTop;
-                $('.ct').addClass(bodyCls);
-                $('.ct').css('top', -scrollTop)
-                // document.body.style.top = -scrollTop + 'px';
-            },
-            beforeClose: function () {
-                // document.body.classList.remove(bodyCls);
-                $('.ct').removeClass(bodyCls)
-                document.scrollingElement.scrollTop = scrollTop;
-            }
-        };
-    })('modal-open')
 
-    // window.onerror = function (message) {
-    //     $('#app').append('<li>' + message + '</li>')
-    // }
+    window.onerror = function (message) {
+        $('#app').append('<li>' + message + '</li>')
+    }
 
     var reqUrl;
     (function () {
@@ -289,6 +247,8 @@
     // btn click event
 
     function sureSearch() {
+        console.log('xxxxxx');
+        console.log($('input[name="search_text"]').val(), $('input[name="search_text"]').val().length);
         apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
             "LoginToken": LoginToken,
             "Count": g_count,
@@ -566,9 +526,7 @@
                             'closeTime': 1500
                         })
                         g_isLock = true;
-                        g_position=1;
                     }
-                    
                 } else {
                     if (data.Data.length > 0) {
                         var str = [];
@@ -676,6 +634,7 @@
         var userName = item.G_XM, gender = item.G_XB, cellPhone = item.G_SJHM, userId = item.G_GKBH;
         var str = 'VC=YBRHistoryOrderViewController&userName=' + userName + '&gender=' + gender + '&cellPhone=' + cellPhone + '&userId=' + userId;
         var newStr = encodeURI(str)
+        console.log(newStr);
         showHtmlcallNative(888, newStr, 888);
     }
 
@@ -1145,30 +1104,41 @@
         handlerTabOfDownNav(g_count, g_position, $('.sel_command> div').index($('.show_border')) + 1, index);
         $('.down_ct').fadeToggle()
         $('.triangle').fadeToggle();
-        
+
     })
 
+    function fixedBody() {
+        var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        document.body.style.cssText += 'position:fixed;top:-' + scrollTop + 'px;';
+    }
+
+    function looseBody() {
+        var body = document.body;
+        body.style.position = '';
+        var top = body.style.top;
+        document.body.scrollTop = document.documentElement.scrollTop = -parseInt(top);
+        body.style.top = '';
+    }
     // open pay record modal
     function handlerPayRecord(userId) {
         $('.pay_ct').fadeIn();
         getPayRecord(userId)
-        // ModalHelper.afterOpen()
-
+        fixedBody()
     }
     function closedPayRecord() {
         $('.pay_ct').fadeOut();
-        // ModalHelper.beforeClose()
+        looseBody();
         // $('.pay_record .middle tbody').empty();
 
     }
 
     function handlerContact(content) {
         $('.custom_ct').fadeToggle()
-        ModalHelper.afterOpen()
+        fixedBody()
     }
     function handlerContact_closed(content) {
         $('.custom_ct').fadeToggle()
-        ModalHelper.beforeClose()
+        looseBody()
     }
     // function handlerContactOfCustom(userId){
     //     getEditInfo(userId)

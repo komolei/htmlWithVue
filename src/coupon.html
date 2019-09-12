@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport'
+        content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' />
+    <title>优惠劵</title>
+</head>
+<script src='https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/js/vue.min.js'></script>
+
+<body>
+    <div class='domLoading'>
+        <img src='https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/loading_svg/bars.svg'>
+    </div>
+    <div id='app' v-cloak>
+        <div class="ct">
+          <ul>
+              <li>
+                  
+              </li>
+          </ul>
+        </div>
+        <div class='alert-content' :class='isAlert?"":"noShowOfAlert"'>{{ErrorMsg}}</div>
+    </div>
+</body>
+<!--<script src='https://ossstatic.ybren.com/Wx/cashBack/jquery.min.js'></script> -->
+<script src='https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js'></script>
+<script src='https://ossstatic.ybren.com/Public/js/noncestamp.js?v=1'></script>
+<!--<script src='https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/js/swiper.js'></script> -->
+<!-- <script src='https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/js/vue.js'></script> -->
+<script>
+    (function () {
+        return window.getUrlParams ? console.log('the getUrlParams method is used') :
+            /**
+             * @description get param from url 
+             * @param {string} param
+             * @return {string}
+             */
+            window.getUrlParams = function (param) {
+                var url = window.location.href.toString();
+                var urlArr = url.replace(/[\?\#]/g, '&').split('&').filter(function (item) {
+                    return item.indexOf('=')
+                })
+                var urlObj = {};
+                urlArr.forEach(function (item) {
+                    urlObj[item.substr(0, item.indexOf('='))] = item.substr(item.indexOf('=') + 1, item
+                        .length)
+                })
+                return urlObj[param] ? urlObj[param] : ''
+            }
+    })()
+    var reqUrl;
+    (function () {
+        var url = window.document.location.href.toString();
+        if (/localhost/g.test(url) || /file/g.test(url) || /test/g.test(url)) {
+            reqUrl = 'http://apptest.ybren.com/index.php/'
+        } else {
+            reqUrl = 'http://app.ybren.com/index.php/'
+        }
+    })();
+    new Vue({
+        el: '#app',
+        data: {
+            ErrorMsg: 'dd',
+            isAlert: false,
+            result: {
+                C_HDJSSJ: '',
+                C_HDKSSJ: '',
+            }
+        },
+        methods: {
+            alertErrorMsg: function (msg, timer) {
+                timer = timer ? timer : 1000
+                this.ErrorMsg = msg;
+                this.isAlert = true;
+                var that = this;
+                setTimeout(function () {
+                    that.isAlert = false
+                }, timer)
+            },
+            getDetailPage: function () {
+                var that = this;
+                apiPost(
+                    reqUrl + '/H5PerBusiness/getDetailPage', {
+                        Id: getUrlParams('id') ? getUrlParams('id') : 1
+                    },
+                    function (data) {
+                        if (data['Status'] == 1) {
+                            that.result = data['Data']
+                            that.$set(that.result, 'C_HDJSSJ', that.result.C_HDJSSJ.substring(0, 10))
+                            that.$set(that.result, 'C_HDKSSJ', that.result.C_HDKSSJ.substring(0, 10))
+                            // that.result.C_HDJSSJ = that.result.C_HDJSSJ.substring(0, 10)
+                            // that.result.C_HDKSSJ = that.result.C_HDKSSJ.substring(0, 10)
+                        } else {
+                            that.alertErrorMsg(data['ErrorMsg'])
+                        }
+                    },
+                    false
+                )
+            }
+        },
+        created: function () {
+        },
+        mounted: function () {
+            document.querySelector('.domLoading').style.display = 'none';
+            this.getDetailPage()
+        },
+        destroyed: function () { },
+    })
+</script>
+
+</html>

@@ -42,8 +42,6 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "better-scroll": "^1.13.2",
-    "lazy-load-img": "^3.0.8",
     "node-sass": "^4.9.4"
   }
 }

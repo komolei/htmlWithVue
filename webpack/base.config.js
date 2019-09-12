@@ -144,7 +144,8 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             title: 'ybren',
-            template: 'src/h12.html'
+            // template: 'vueSrc/index.html'
+            template: 'src/home.html'
         })
     ],
 }

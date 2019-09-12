@@ -147,7 +147,7 @@ const prod = {
     // },
     plugins: [
 
-        new ExtractTextPlugin('css/[name].tf96ec250f4f92f153ea6.bundle.css'),
+        new ExtractTextPlugin('css/[name].[hash].bundle.css'),
         new OptimizeCssAssetsPlugin({
             assetNameRegExp: /\.css$/g,
             cssProcessor: require('cssnano'),
@@ -196,8 +196,8 @@ const prod = {
             // extractComments: true,
         }),
         new HtmlWebpackPlugin({
-            title: '双十一 ',
-            template: 'src/h11.html'
+            title: 'ybren ',
+            template: 'src/home.html'
         })
         // new webpack.DefinePlugin({ // <-- 减少 React 大小的关键
         //     'process.env': {

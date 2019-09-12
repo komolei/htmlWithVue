@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html ng-app="meijin">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="http://www.zsinfotech.com/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://www.zsinfotech.com/style/common.css" rel="stylesheet">
+    <!-- <link href="http://www.zsinfotech.com/page/brand-story/style.css" rel="stylesheet">  -->
+    <title>品牌故事</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <style type="text/css">
+        [ng-cloak] {
+            display: none;
+        }
+
+        .nav-container {
+            width: 100%;
+            position: static;
+            margin-left: 0;
+            background-color: #fff;
+            z-index: 33;
+        }
+
+        .navbar-default .navbar-nav>li>a {
+            color: #666;
+        }
+
+        .nav-container .navbar-left .form-group {
+            border-right: 1px solid #e5e5e5;
+            border-left: 1px solid #e5e5e5;
+        }
+    </style>
+
+
+</head>
+
+<body ng-controller="IndexCtrl" ng-cloak>
+    <!-- 顶部导航 -->
+    <div class="nav-container">
+        <div class="container">
+            <!-- class="container" 去掉了 -->
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle
+                                collapsed"
+                            data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="http://www.zsinfotech.com/index.html">
+                            <img src="http://www.zsinfotech.com/images/logo1.png" alt="">
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="http://www.zsinfotech.com/index.html">首页
+                                    <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li>
+                                <a href="../caseList/index.html">作品案例</a>
+                            </li>
+                            <li>
+                                <a href="../designerList/index.html">设计团队</a>
+                            </li>
+                            <li>
+                                <a href="../buildingList/index.html">楼盘工地</a>
+                            </li>
+                            <li>
+                                <a href="../service/index.html">服务体系</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                    aria-expanded="false">关于腾龙 <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="../brand-story/index.html">品牌溯源</a></li>
+                                    <li><a href="../designSystem/index.html">设计体系</a></li>
+                                    <li><a href="../activityList/index.html">主题活动</a></li>
+                                    <li><a href="../contactUs/index.html">联系我们</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form class="navbar-form navbar-left">
+                            <div class="form-group" ng-click="searchOpen();">
+                                <img src="http://www.zsinfotech.com/images/search_gray.png" alt="">
+                            </div>
+                            <span class="phone">400-910-1100</span>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- 选项栏 -->
+    <div class="container">
+        <div class="path">
+            <a href="javascript:;">腾龙设计</a>
+            <span>></span>
+            <a href="javascript:;">关于腾龙</a>
+            <span>></span>
+            <a href="javascript:;">品牌故事</a>
+        </div>
+    </div>
+    <!-- banner -->
+    <div class="banner11 animated zoomIn">
+        <!-- <img src="http://www.zsinfotech.com/images/brand1.jpg" alt=""> -->
+    </div>
+    <div class="banner2 animated zoomIn">
+        <div class="banner2_box">
+            <div class="banner2_head animated zoomIn">
+                <img src="http://www.zsinfotech.com/images/design-title.png" alt="">
+            </div>
+            <div class="banner2_top-right animated zoomIn">
+                <img src="http://www.zsinfotech.com/images/triangle.png" alt="">
+            </div>
+            <div class="banner_body">
+                <div class="banner_body-left animated zoomIn">
+                    <img src="http://www.zsinfotech.com/images/design_head.png" alt="">
+                </div>
+                <div class="banner_body-right">
+                    <div class="banner_body-right_img animated zoomIn">
+                        <img src="http://www.zsinfotech.com/images/Designconcept@2x.png" alt="">
+                    </div>
+                    <div class="banner-line">
+
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="banner_li-icon icon_1 animated zoomIn">
+                                <!-- <img  src="http://www.zsinfotech.com/images/design_icon_0.png"/> -->
+                            </div>
+                            <div>
+                                <p>专注于别墅家装领域</p>
+                                <p>基于集团20余年家装工艺研发经验，近十年别墅生活思考。</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="banner_li-icon icon_2 animated zoomIn">
+                                <!-- <img  src="http://www.zsinfotech.com/images/design_icon_0.png"/> -->
+                            </div>
+                            <div>
+                                <p>设计甲级、施工一级资质</p>
+                                <p>上海市唯一一家由国家建设部颁发资质的家装企业</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="banner_li-icon icon_3 animated zoomIn">
+                                <!-- <img  src="http://www.zsinfotech.com/images/design_icon_0.png"/> -->
+                            </div>
+                            <div>
+                                <p>国家级注册专业别墅设计团队</p>
+                                <p>拥有数十名国家级注册优异设计师，常年受邀海外游学深造。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="banner3 animated zoomIn">
+        <img src="http://www.zsinfotech.com/images/design_tx.png " alt="">
+
+    </div>
+    <div class="banner4">
+        <!-- <div class="banner4-head-ima">
+                <img src="http://www.zsinfotech.com/images/design_tx.png" alt="">
+        </div> -->
+        <div class="banner4_box">
+            <div class="banner4-img animated zoomIn">
+                <img src="http://www.zsinfotech.com/images/design_kind.png" alt="">
+            </div>
+            <div class="banner4_plan animated zoomIn">
+                <img src="http://www.zsinfotech.com/images/design_plan.png" alt="">
+            </div>
+            <div class="banner4_bottom">
+                <ul>
+                    <li>
+                        <div class="banner4_bottom-icon icon_1 animated zoomIn">
+
+                        </div>
+                        <p>
+                            提案规划阶段
+                        </p>
+                        <p>
+                            1、设计服务启动 2、现场勘察 3、初步平面方案
+                        </p>
+                    </li>
+                    <li>
+                        <div class="banner4_bottom-icon icon_2 animated zoomIn">
+
+                        </div>
+                        <p>
+                            空间与效果设计阶段
+                        </p>
+                        <p>
+                            1、建筑与结构改善 2、室内空间规划 3、全案规划 4、签订设计合同
+                        </p>
+                    </li>
+                    <li>
+                        <div class="banner4_bottom-icon icon_3 animated zoomIn">
+
+                        </div>
+                        <p>
+                            施工深化设计阶段
+                        </p>
+                        <p>
+                            第二次复测： 验证效果设计方案， 验证技术与经济指标， 调整验证可行性; 1、二次建筑装饰设计确认 2、景观设计方案通过确认 3、室内方案确认
+                        </p>
+                    </li>
+                    <li>
+                        <div class="banner4_bottom-icon icon_4 animated zoomIn">
+
+                        </div>
+                        <p>
+                            施工图预算阶段
+                        </p>
+                        <p>
+                            1、深化设计确认 2、全案预算确认 3、签订全案施工合同
+                        </p>
+                    </li>
+                    <li>
+                        <div class="banner4_bottom-icon icon_5 animated zoomIn">
+
+                        </div>
+                        <p>
+                            施工进行阶段
+                        </p>
+                        <p>
+                            1、施工指导及现场精准放样 2、施工质量及进度监督 3、客户设计变更支持与协同 （改善方案及清单提交） 4、访问客户及工地，参加施工协同会 （每月不少于两次） 5、成本控制及品质掌控
+                            6、装饰效果掌控 7、改善方案及清单
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- <div class="banner banner2">
+    <img src="brand3-1.jpg" alt="">
+    <img src="http://www.zsinfotech.com/images/brand3-2.jpg" alt="">
+    <img src="http://www.zsinfotech.com/images/brand3-3.jpg" alt="">
+    <img src="http://www.zsinfotech.com/images/brand3-4.jpg" alt="">
+    <img src="http://www.zsinfotech.com/images/brand3-5.jpg" alt="">
+    </div> -->
+    <!-- 友情链接 -->
+    <div class="link-container animated slideInUp">
+        <div class="container">
+            <p>友情链接</p>
+            <div class="row">
+                <div class="col-md-2 col-sm-2 col-xs-3" ng-repeat="el in
+                        linkArr">
+                    <a ng-href="{{el.url}}" target="_blank" title="{{el.name}}">{{el.name}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部 -->
+    <div class="footer-container animated slideInUp">
+        <div class="container">
+            <p>上海腾龙设计装潢有限公司 版权所有</p>
+            <p>致力于别墅家装服务</p>
+            <p>提供覆盖别墅空间规划、室内设计、别墅工艺、土建工程、软装配饰、智能家居、舒适设备、建材选购、园林环境、风水提议等别墅装修一体及生活配套服务。</p>
+            <div class="line"></div>
+            <p>沪ICP备13030900号-1 沪公网安备 31011502005766号 站点地图</p>
+        </div>
+    </div>
+    <!-- 遮罩层 -->
+    <div class="mask" ng-if="searchBox"></div>
+    <!-- 搜索框 -->
+    <div id="search" ng-if="searchBox">
+        <div class="mask-close" ng-click="searchClose()">
+            <img src="http://www.zsinfotech.com/images/close.png" alt="">
+        </div>
+        <div class="box">
+            <img src="http://www.zsinfotech.com/images/search_gray.png" alt="">
+            <input type="text" placeholder="搜索" ng-model="keyWord.word">
+        </div>
+    </div>
+    <!-- loading -->
+    <div class="loading" ng-if="loading">
+        <img src="http://www.zsinfotech.com/images/loading.gif" alt="">
+    </div>
+</body>
+<script src="http://www.zsinfotech.com/libs/angular/angular.min.js"></script>
+<script src="http://www.zsinfotech.com/libs/jquery/jquery.min.js"></script>
+<script src="http://www.zsinfotech.com/libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="http://www.zsinfotech.com/style/common.js"></script>
+<script src="http://www.zsinfotech.com/page/brand-story/index.js"></script>
+
+<script>
+    $('.dropdown').mouseover(function () {
+        $('.dropdown-menu').css({
+            'display': 'block'
+        })
+    });
+    $('.dropdown').mouseout(function () {
+        $('.dropdown-menu').css({
+            'display': 'none'
+        })
+    });
+</script>
+
+</html>

@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="320">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="browsermode" content="application">
+    <meta name="x5-page-mode" content="app">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>
+        贺岁充值
+    </title>
+    <link rel="shortcut icon" type="image/x-icon" href="//appybrencdn.oss-cn-hangzhou.aliyuncs.com/PC/web/favicon.ico"
+        media="screen">
+
+    <script>
+        if (!window.Promise) {
+            document.writeln(
+                '<script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/js/es6-promise.min.js"' + '>' +
+                '<' + '/' + 'script>');
+        }
+    </script>
+    <!-- <link rel="stylesheet" href="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/js/mescroll.min.css">
+    <script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/js/mescroll.min.js" charset="utf-8"></script> -->
+
+    <!-- <script src="https://ossstatic.ybren.com/Wx/Public/js/jquery.1.7.2.min.js"></script> -->
+    <link rel="stylesheet" href="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/activity/search2019/main.2f37bfe3eb4a21fff6c01.bundle.css">
+    <style>
+
+        [v-cloak] {
+            display: none !important;
+        }
+        
+        .domLoading {
+            width: 20vw;
+            height: 20vw;
+            margin: 0 auto;
+            line-height: 100vh;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="domLoading">
+        <img src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/loading_svg/bars.svg">
+    </div>
+    <div id="app" v-cloak>
+        <div class="ct">
+            <div class="nav">
+                <div class="command">
+                    客户排序：
+                </div>
+                <ul class="sel_command" @click="selectType">
+                    <li v-for="(item,index) in tabArr" :key="index" :class="show_border_index==item.id?'show_border':''"
+                        :data-id="item.id">{{item.label}}</li>
+                </ul>
+            </div>
+
+            <div class="filter_ct">
+                <div class="command">
+                    客户筛选
+                </div>
+                <div class="link-result_ct" @click="showLinkResultOfDrop">
+                    <span class="link-result-text" v-if="filter==2">联系结果:{{filterList[filter-1].label}}:({{notLinkNum}})</span>
+                    <span class="link-result-text" v-else>联系结果:{{filterList[filter-1].label}}</span>
+                    <div :class="['link-result_drop',isShowOfLinkResultDrop?'':'hide']">
+                        <div class="triangle"></div>
+                        <ul class="downNav" @click.stop="handlerLinkResultOfDrop">
+                            <li v-for="(item,index) in filterList" :key='index' :data-id="item.id" :class="item.id==filter?'select_li':''">{{item.label}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="recharge-result_ct" @click="showRechargeResultOfDrop">
+                    <span class="recharge-result-text">
+                        充值结果: {{rechargeList[rechargeIndex].label}}
+                    </span>
+                    <div :class="['recharge-result_drop',isShowOfRechargeResultDrop?'':'hide']">
+                        <div class="triangle"></div>
+                        <ul class="downNav" @click.stop="handlerRechargeResultDrop">
+                            <li v-for="(item,index) in rechargeList" :key='index' :data-id="item.id" :data-index='index'
+                                :class="item.id==rechargeType?'select_li':''">{{item.label}}</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="search_ct">
+                    <input type="text" name="search_text" id="" v-model.trim="keywords">
+                    <div @click="getEleven2018List">确定</div>
+                </div>
+            </div>
+
+        </div>
+
+        <ul class="wrapperContent">
+            <li v-for="(item,index) in searchResult" :key="index">
+                <div class="title">
+                    <div class="left">{{ item.G_XM}}-{{ item.G_XB}}-{{item.G_SJHM}} <span v-if="item.CZTZ=='未充值'" class="notRecharge">{{item.CZTZ}}</span>
+                        <span v-else class="isRecharge">
+                            {{item.CZTZ}}</span>
+                    </div>
+                    <div class="right" @click="getEditInfo(item.G_GKBH)">
+                        <button> {{item.G_SFLX}} </button>
+                        <div> {{item.XCLXSJ}} </div>
+                        <div class="img_ct">
+                            <img class="img_all" src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/komolei/images/icon_hdbjzt%402x.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="content_c">
+                    <div class="left">
+                        <p>
+                            <span class="text_1">
+                                现金余额：
+                            </span>
+                            <span class="text_2">
+                                {{item.G_QBYE}} 元
+                            </span>
+                        </p>
+                        <p>
+                            <span class="text_1">
+                                活动余额：
+                            </span>
+                            <span class="text_2">
+                                {{item.G_HDYE}} 元
+                            </span>
+                        </p>
+                        <p>
+                            <span class="text_1">
+                                累计消费金额：
+                            </span>
+                            <span class="text_2">
+                                {{item.G_LJXFJE}} 元
+                            </span>
+                        </p>
+                        <p class="text_bz">
+                            <span class="text_1">
+                                备注：
+                            </span>
+                            <span class="text_2">
+                                {{ item.G_BZ}}
+                            </span>
+                        </p>
+                        <div class="btns">
+                            <div class="btn_history" @click="handlerHistoryOrder(item)">历史订单</div>
+                            <div class="record" @click="handlerPayRecord(item.G_GKBH)">充值记录</div>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <p>
+                            <span class="text_1">
+                                购买频次：
+                            </span>
+                            <span class="text_2">
+                                {{item.S_LJXFCS}} 次
+                            </span>
+                        </p>
+                        <p>
+                            <span class="text_1">
+                                最近消费时间：
+                            </span>
+                            <span class="text_2">
+                                {{item.S_ZJYCXF}}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+
+        <div class="loading" v-show="isLoading">
+            <img src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/loading_svg/goodLoading.svg">
+        </div>
+        <div class="alert-content" :class="isAlert?'':'noShowOfAlert'">{{ErrorMsg}}</div>
+
+        <div class="custom_ct hide" ref='customCtRef'>
+            <div class="custom">
+                <div class="top">
+                    请设置客户状态
+                </div>
+                <div class="middle">
+                    <label for="no_contact">
+                        <div class="icon_ct">
+                            <input type="radio" name="custom_status" id="no_contact" value="未联系" :checked="status==1"
+                                @change="handlerSelectTime_no_contact">
+                            <span class="icon_check"></span>
+                        </div>
+                        <div class="text">未联系</div>
+                    </label>
+                    <label for="next_contact">
+                        <div class="icon_ct">
+                            <input type="radio" name="custom_status" id="next_contact" value="下次联系" :checked="status==2"
+                                @change="handlerNextContact">
+                            <span class="icon_check"></span>
+                        </div>
+                        <div class="text">下次联系</div>
+                    </label>
+                    <label for="agree_pay">
+                        <div class="icon_ct">
+                            <input type="radio" name="custom_status" id="agree_pay" value="同意充值" :checked="status==3"
+                                @change="handlerSelectTime_agree_pay">
+                            <span class="icon_check"></span>
+                        </div>
+                        <div class="text">同意充值</div>
+                    </label>
+                    <label for="adjust_pay">
+                        <div class="icon_ct">
+                            <input type="radio" name="custom_status" id="adjust_pay" value="拒绝充值" :checked="status==4"
+                                @change="handlerSelectTime_adjust_pay">
+                            <span class="icon_check"></span>
+                        </div>
+                        <div class="text">拒绝充值</div>
+                    </label>
+                </div>
+                <div class="select_time" ref='selectTimeRef' v-if="status==2">
+                    <div class="top">
+                        设置下次联系时间
+                    </div>
+                    <ul class="time_box" @click="setNextLinkTime">
+                        <li v-for='(item,index) in time_list' :key='index' :data-id="item.label" :class="[select_time_index==item.label?'show_time':'','time']">{{item.label}}</li>
+                    </ul>
+                </div>
+                <div class="remark">
+                    添加备注（<span>{{remark.length}}</span>/50）
+                </div>
+                <div class="remark_input">
+                    <!-- <input type="text" v-model='remark' @input='watchRemark'> -->
+                    <!-- <textarea name="" id="" cols="50" rows="1" maxlength="50" v-model='remark' @input='watchRemark'></textarea> -->
+                    <div class="textarea" contenteditable="true" @input='watchRemark1' ref='textareaRef'><br /></div>
+                </div>
+                <div class="bottom">
+                    <div class="btn_cancel" @click="handlerContact_closed">取消</div>
+                    <div class="btn_sure" @click="sureEditInfo">确定</div>
+                </div>
+            </div>
+        </div>
+        <div class="pay_ct hide" ref='payCtRef'>
+            <div class="pay_record">
+                <div class="top">
+                    充值记录
+                </div>
+                <div class="middle">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>充值时间</th>
+                                <th>充值金额（元）</th>
+                            </tr>
+                            <tr v-for="(item,index) in payRecordData" :key="index">
+                                <td>{{item.CJSJ}}</td>
+                                <td>{{item.JE }}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bottom">
+                    <div class="cancel" @click="closedPayRecord">关闭</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- <script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Wx/Public/js/jquery.1.7.2.min.js"></script> -->
+
+    <script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/js/zepto_1.2.js"></script>
+    <script src="https://ossstatic.ybren.com/Public/js/noncestamp.js?v=1"></script>
+    <script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/js/vue.js"></script>
+    <!-- <script src="https://appybrencdn.oss-cn-hangzhou.aliyuncs.com/Public/js/vue.min.js"></script> -->
+    <script src="https://ossstatic.ybren.com/Wx/Public/js/app_function.js"></script>
+
+    <script>
+        var reqUrl;
+        (function () {
+            var url = window.document.location.href.toString();
+            // if (url.indexOf('localhost') != -1) {
+            if (/localhost/g.test(url) || /file/g.test(url) || /test/g.test(url)) {
+                reqUrl = "http://apptest.ybren.com/index.php/";
+            } else {
+                reqUrl = "https://app.ybren.com/index.php/";
+            }
+
+        })()
+        var $_GET = (function () {
+            var url = window.document.location.href.toString();
+            var u = url.split("?");
+            if (typeof (u[1]) == "string") {
+                u = u[1].split("&");
+                var get = {};
+                for (var i in u) {
+                    var j = u[i].split("=");
+                    get[j[0]] = j[1];
+                }
+                return get;
+            } else {
+                return {};
+            }
+        })();
+        var LoginToken = $_GET['LoginToken']
+        new Vue({
+            el: '#app',
+            data: {
+                name: 'search page',
+                ErrorMsg: '',
+                isAlert: false,
+                show_border_index: 1,
+                tabArr: [{
+                    id: 1,
+                    label: '累计消费金额'
+                }, {
+                    id: 2,
+                    label: '现金余额'
+                }, {
+                    id: 3,
+                    label: '最近购买时间'
+                }, {
+                    id: 4,
+                    label: '下次联系时间'
+                }],
+                notLinkNum: 0,
+                userId: null,
+                Count: 10,
+                prePosition: 1,
+                Position: 1,
+                type: 1,
+                filter: 1,
+                filterList: [{
+                        id: 1,
+                        label: '全部',
+                    },
+                    {
+                        id: 2,
+                        label: '未联系'
+                    },
+                    {
+                        id: 3,
+                        label: '同意充值'
+                    }, {
+                        id: 4,
+                        label: '拒绝充值'
+                    },
+                    {
+                        id: 5,
+                        label: '下次联系'
+                    }
+                ],
+                rechargeIndex: 0,
+                rechargeType: 3,
+                rechargeList: [{
+                        id: 3,
+                        label: '全部'
+                    },
+                    {
+                        id: 1,
+                        label: '已充值',
+                    },
+                    {
+                        id: 2,
+                        label: '未充值'
+                    },
+
+                ],
+                keywords: '',
+                searchResult: [],
+                isShowOfLinkResultDrop: false,
+                isShowOfRechargeResultDrop: false,
+                select_time_index: '2019.1.18',
+                time_list: [{
+                        label: '2019.1.18'
+                    },
+                    {
+                        label: '2019.1.19'
+                    },
+                    {
+                        label: '2019.1.20'
+                    },
+                    {
+                        label: '2019.1.21'
+                    },
+                    {
+                        label: '2019.1.22'
+                    },
+                    {
+                        label: '2019.1.23'
+                    },
+                    {
+                        label: '2019.1.24'
+                    },
+                    {
+                        label: '2019.1.25'
+                    },
+                ],
+                remark: '', //备注
+                status: 1, // 客户状态
+                payRecordData: [], // 充值记录
+                isLoading: true,
+                isLock: false, // ajax lock
+                isFixed: false, //  stop fetch data in fixed body
+            },
+
+            methods: {
+                alertErrorMsg: function (msg, timer) {
+                    timer = timer ? timer : 1500
+                    this.ErrorMsg = msg;
+                    this.isAlert = true;
+                    var that = this;
+                    setTimeout(function () {
+                        that.isAlert = false
+                    }, timer)
+                },
+                selectType: function (e) {
+                    if (e.target.nodeName.toLowerCase() === 'li') {
+                        this.show_border_index = e.target.dataset.id;
+                        this.getEleven2018List()
+                    }
+                },
+                showLinkResultOfDrop: function (e) {
+                    this.isShowOfLinkResultDrop = !this.isShowOfLinkResultDrop;
+
+                },
+                showRechargeResultOfDrop: function () {
+                    this.isShowOfRechargeResultDrop = !this.isShowOfRechargeResultDrop;
+                },
+                handlerLinkResultOfDrop: function (e) {
+                    if (e.target.nodeName.toLocaleLowerCase() == 'li') {
+                        this.filter = e.target.dataset.id;
+                        this.getEleven2018List()
+                        this.showLinkResultOfDrop();
+                    }
+                },
+                handlerRechargeResultDrop: function (e) {
+                    if (e.target.nodeName.toLocaleLowerCase() == 'li') {
+                        this.rechargeType = e.target.dataset.id;
+                        this.rechargeIndex = e.target.dataset.index;
+                        this.getEleven2018List()
+                        this.showRechargeResultOfDrop()
+                    }
+                },
+                getEleven2018List: function () {
+                    var that = this;
+                    if (this.isLock) return;
+                    this.islock = true;
+                    apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
+                        "LoginToken": LoginToken,
+                        "Count": this.Count,
+                        "Position": this.Position,
+                        "type": this.show_border_index,
+                        "filter": this.filter,
+                        "rechargeType": this.rechargeType,
+                        "keywords": this.keywords,
+                    }, function (data) {
+                        that.islock = false
+                        that.isLoading = false;
+                        that.prePosition=1;
+                        if (data.Status) {
+                            if (data.Data.lists.length > 0) {
+                                that.searchResult = data.Data.lists;
+                                that.notLinkNum = data.Data.count;
+                            } else {
+                                that.alertErrorMsg('暂无数据')
+                                that.searchResult = []
+                                // that.notLinkNum = 0;
+                            }
+                        } else {
+                            that.alertErrorMsg(data['ErrorMsg'])
+                        }
+
+                    })
+                },
+                editInfo: function (UserId) {
+                    var that = this;
+                    var params = {
+                        "LoginToken": LoginToken,
+                        "userId": UserId,
+                        'status': this.status,
+                        'remark': this.remark
+                    }
+                    if (this.status == 2) {
+                        params.contactDate = this.select_time_index
+                    }
+                    apiPost(reqUrl + "/H5Eleven2018/editInfo", params, function (data) {
+                        if (data.Status) {
+                            that.alertErrorMsg('编辑成功')
+                            that.getEleven2018List()
+                        } else {
+                            that.alertErrorMsg(data['ErrorMsg'])
+                        }
+                        that.looseBody();
+                        that.handlerContact_closed()
+
+                    }, false);
+                },
+
+                getEditInfo: function (userId) {
+                    this.userId = userId
+                    var that = this;
+                    this.fixedBody();
+                    apiPost(reqUrl + "/H5Eleven2018/getEditInfo", {
+                        "LoginToken": LoginToken,
+                        "userId": userId,
+                    }, function (data) {
+                        if (data.Status) {
+                            that.handlerContact()
+                            that.remark = data.Data.G_BZ;
+                            that.$refs.textareaRef.innerText = data.Data.G_BZ;
+                            that.select_time_index = data.Data.XCLXSJ ? data.Data.XCLXSJ.replace(
+                                    '-01', '.1').replace(/\-/g, '.') :
+                                '2019.1.21'
+                            that.status = data.Data.G_SFLX ? data.Data.G_SFLX : 1;
+                        } else {
+                            that.alertErrorMsg(data['ErrorMsg'])
+                        }
+
+                    }, false);
+                },
+                handlerSelectTime_no_contact: function () {
+                    this.status = 1;
+                },
+                handlerSelectTime_agree_pay: function () {
+                    this.status = 3;
+                },
+                handlerSelectTime_adjust_pay: function () {
+                    this.status = 4;
+                },
+                handlerNextContact: function () {
+                    this.status = 2;
+                },
+                setNextLinkTime: function (e) {
+                    if (e.target.nodeName.toLocaleLowerCase() == 'li') {
+                        this.select_time_index = e.target.dataset.id;
+                    }
+                },
+                handlerContact: function () {
+                    this.$refs.customCtRef.classList.remove('hide')
+                },
+                handlerContact_closed: function () {
+                    this.$refs.customCtRef.classList.add('hide')
+                    this.looseBody();
+                },
+
+                sureEditInfo: function () {
+                    this.editInfo(this.userId)
+
+                },
+                watchRemark: function () {
+                    this.remark = this.remark.substr(0, 50)
+                },
+                keepLastIndex(obj) {
+                    if (window.getSelection) { //ie11 10 9 ff safari
+                        obj.focus(); //解决ff不获取焦点无法定位问题
+                        var range = window.getSelection(); //创建range
+                        range.selectAllChildren(obj); //range 选择obj下所有子内容
+                        range.collapseToEnd(); //光标移至最后
+                    } else if (document.selection) { //ie10 9 8 7 6 5
+                        var range = document.selection.createRange(); //创建选择对象
+                        //var range = document.body.createTextRange();
+                        range.moveToElementText(obj); //range定位到obj
+                        range.collapse(false); //光标移至最后
+                        range.select();
+                    }
+                },
+
+                watchRemark1: function (e) {
+                    this.remark = e.target.innerText.substr(0, 50)
+                    if (this.$refs.textareaRef.innerText.length > 50) {
+                        this.$refs.textareaRef.innerText = this.$refs.textareaRef.innerText.substr(0, 50)
+                        this.alertErrorMsg('最多输入50个字数')
+                        this.keepLastIndex(this.$refs.textareaRef)
+                    }
+                },
+                handlerPayRecord: function (userId) {
+                    this.$refs.payCtRef.classList.remove('hide')
+                    this.fixedBody();
+                    this.getPayRecord(userId);
+                },
+                closedPayRecord: function () {
+                    this.$refs.payCtRef.classList.add('hide')
+                    this.looseBody();
+                },
+                getPayRecord: function (UserId) {
+                    var that = this;
+                    apiPost(reqUrl + "/H5Eleven2018/getRechargeList", {
+                        "LoginToken": LoginToken,
+                        "userId": UserId,
+                    }, function (data) {
+                        if (data.Status) {
+                            that.payRecordData = data.Data;
+                        } else {
+                            that.alertErrorMsg(data.ErrorMsg)
+                        }
+                    }, false);
+                },
+                handlerHistoryOrder: function (item) {
+                    var userName = item.G_XM,
+                        gender = item.G_XB,
+                        cellPhone = item.G_SJHM,
+                        userId = item.G_GKBH;
+                    var str = 'VC=YBRHistoryOrderViewController&userName=' + userName + '&gender=' + gender +
+                        '&cellPhone=' +
+                        cellPhone + '&userId=' + userId;
+                    var newStr = encodeURI(str)
+                    showHtmlcallNative(888, newStr, 888);
+                },
+                throttle: function (delay, action) {
+                    var cur = 0;
+                    return function () {
+                        var ctx = this,
+                            args = arguments;
+                        var now = new Date()
+                        if (now - cur > delay) {
+                            action.apply(ctx, args)
+                            cur = now;
+                        }
+                    }
+                },
+                debounce: function (idea, action) {
+                    var last;
+                    return function () {
+                        var ctx = this;
+                        var args = arguments;
+                        clearTimeout(last)
+                        last = setTimeout(function () {
+                            action.apply(ctx, action)
+                        }, idea)
+                    }
+                },
+                getElevenListInPopUp: function () {
+                    var that = this;
+                    if (this.isLock) return;
+                    this.islock = true;
+                    apiPost(reqUrl + "/H5Eleven2018/Eleven2018List", {
+                        "LoginToken": LoginToken,
+                        "Count": this.Count,
+                        "Position": this.prePosition,
+                        "type": this.show_border_index,
+                        "filter": this.filter,
+                        "rechargeType": this.rechargeType,
+                        "keywords": this.keywords,
+                    }, function (data) {
+                        that.islock = false;
+                        that.isLoading = false;
+                        if (data.Status) {
+                            if (data.Data.lists.length > 0) {
+                                that.searchResult = that.searchResult.concat(data.Data.lists)
+                                // that.notLinkNum = that.searchResult.filter(function (item) {
+                                //     return item.G_SFLX == '未联系'
+                                // }).length
+                            } else {
+                                that.alertErrorMsg('暂无数据')
+                                that.prePosition = that.prePosition == 1 ? 1 : that.prePosition - 1;
+                            }
+                        } else {
+                            that.alertErrorMsg(data['ErrorMsg'])
+                            that.prePosition = that.prePosition == 1 ? 1 : that.prePosition - 1;
+
+                        }
+
+                    })
+                },
+                //文档高度
+                getDocumentTop() {
+                    var scrollTop = 0,
+                        bodyScrollTop = 0,
+                        documentScrollTop = 0;
+                    if (document.body) {
+                        bodyScrollTop = document.body.scrollTop;
+                    }
+                    if (document.documentElement) {
+                        documentScrollTop = document.documentElement.scrollTop;
+                    }
+                    scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+                    return scrollTop;
+                },
+                getWindowHeight() {
+                    //可视窗口高度
+                    var windowHeight = 0;
+                    if (document.compatMode == "CSS1Compat") {
+                        windowHeight = document.documentElement.clientHeight;
+                    } else {
+                        windowHeight = document.body.clientHeight;
+                    }
+                    return windowHeight;
+                },
+
+                //滚动条滚动高度
+                getScrollHeight() {
+                    var scrollHeight = 0,
+                        bodyScrollHeight = 0,
+                        documentScrollHeight = 0;
+                    if (document.body) {
+                        bodyScrollHeight = document.body.scrollHeight;
+                    }
+                    if (document.documentElement) {
+                        documentScrollHeight = document.documentElement.scrollHeight;
+                    }
+                    scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight :
+                        documentScrollHeight;
+                    return scrollHeight;
+                },
+                fixedBody() {
+                    var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+                    document.body.style.cssText += 'position:fixed;top:-' + scrollTop + 'px;';
+                    this.isFixed = true;
+                },
+                looseBody() {
+                    var body = document.body;
+                    body.style.position = '';
+                    var top = body.style.top;
+                    document.body.scrollTop = document.documentElement.scrollTop = -parseInt(top);
+                    body.style.top = '';
+                    this.isFixed = false;
+                },
+                fetchData() {
+                    if (this.isFixed) return;
+                    if (this.getWindowHeight() + this.getDocumentTop() + 60 > this.getScrollHeight()) {
+                        this.prePosition = this.prePosition + 1;
+                        this.isLoading = true;
+                        this.getElevenListInPopUp()
+                    }
+                }
+            },
+            mounted: function () {
+                this.getEleven2018List();
+                window.addEventListener('scroll', this.throttle(300, this.fetchData), false)
+                document.querySelector('.domLoading').style.display = 'none';
+            }
+        })
+    </script>
+</body>
+
+</html>

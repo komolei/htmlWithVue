@@ -1,0 +1,96 @@
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        fieldset, img, input, button {
+            border: none;
+            outline-style: none;
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        select, input {
+            vertical-align: middle;
+        }
+
+        select, input, textarea {
+            font-size: 12px;
+            margin: 0;
+            background: transparent;
+        }
+
+        /*防止拖动*/
+        textarea {
+            resize: none;
+        }
+
+        /*  去掉图片低测默认的3像素空白缝隙*/
+        img {
+            vertical-align: top;
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            -webkit-transition-delay: 99999s;
+            -webkit-transition: color 99999s ease-out, background-color 99999s ease-out;
+        }
+
+
+        /*边框会合并为一个单一的边框。会忽略 border-spacing 和 empty-cells 属性。*/
+        table {
+            border-collapse: collapse;
+        }
+
+        body {
+            font: normal 0.16rem/1.5 "Arial", "Times New Roman", 'Microsoft yahei', "楷体_GB2312", 'simsun', "\5b8b\4f53";
+            background: #fff;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            text-decoration: none;
+            font-weight: normal;
+            font-size: 100%;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        s, i, em {
+            font-style: normal;
+            text-decoration: none;
+        }
+
+        .clearfix:after {
+            content: '.';
+            height: 0;
+            display: block;
+            clear: both;
+            visibility: hidden;
+        }
+
+        /*头部*/
+        .header {
+ 
+        }
+
+        
