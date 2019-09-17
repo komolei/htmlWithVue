@@ -3,10 +3,6 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 
-const express = require('express');
-
-const proxy = require('http-proxy-middleware');
-
 const dev = {
     mode: 'development',
     devtool: 'inline-source-map',
@@ -23,24 +19,17 @@ const dev = {
         //     // index: path.posix.join(path.resolve(process.cwd(),'dist/'), 'index.html')
 
         //   },
-        watchContentBase: true,
-        compress: true,
+        compress: false,
         host: 'localhost',
         port: 3000,
-        headers: {
-            "X-Custom-Foo": "komolei"
-        },
-        // hot: true,
-        index: '/',
+        hot: true,
+        // index: '/',
         inline: true,
-        lazy: false,
         open: true,
-        public: '',
         publicPath: '/',
         // openPage: 'dist/index.html'
     },
     plugins: [
-        new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
     ],
     // optimize performance
